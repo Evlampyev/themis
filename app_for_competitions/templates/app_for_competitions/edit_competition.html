@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Конкурс
+{% endblock %}
+
+{% block content %}
+
+<h2 class="center">{% if id %} Изменение данных конкурса {% else %} Добавление нового конкурса {% endif %}</h2>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% if id %}Сохранить{% else %}Добавить{% endif %}"/>
+</form>
+
+{% endblock content %}

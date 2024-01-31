@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Редактирование конкурсов
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="table-caption">Список конкурсов</div>
+    <table id="table">
+        <thead>
+        <tr>
+            {% for value in title %}
+            <th>{{ value }}</th>
+            {% endfor %}
+            <!--            <th><input type="checkbox"/></th>-->
+        </tr>
+        </thead>
+        <tbody>
+        {% for competition in competitions %}
+        <tr>
+            <td>{{competition.id}}</td>
+            <td>{{competition.name}}</td>
+            <td>{{competition.fullname}}</td>
+            <td>{{competition.date}}</td>
+            <td>
+                <div class="container">
+                    <a href="{% url 'competition_activate' pk=competition.id %}" class="btn a_btn">
+                        {% if competition.active %}
+                            Деактивировать
+                        {% else %}
+                            Активировать
+                        {% endif %}
+                    </a>
+                </div>
+            </td>
+
+            <td class="actions"><a href="{% url 'edit_competition' pk=competition.id %}">Edit</a> | <a
+                    href="{% url 'delete_competition' pk=competition.id %}">Delete</a></td>
+            <!--            <td class="checkbox"><input type="checkbox"/></td>-->
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="container">
+        <a href="{% url 'add_competition' %}" class="btn a_btn">Добавить</a>
+    </div>
+</div>
+{% endblock %}

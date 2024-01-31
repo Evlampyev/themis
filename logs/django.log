@@ -1,0 +1,4 @@
+[INFO    :            app_main.views] - 2024-01-31 14:50:05,697 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-01-31 14:50:05,727 : log_message @ 0212: "GET / HTTP/1.1" 200 2337
+[INFO    :             django.server] - 2024-01-31 14:50:09,253 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 9145
+[INFO    :             django.server] - 2024-01-31 14:50:12,660 : log_message @ 0212: "GET /users/login/ HTTP/1.1" 200 2527

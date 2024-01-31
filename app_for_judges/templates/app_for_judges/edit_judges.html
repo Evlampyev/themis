@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Редактирование судей
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% if not judges %}
+    <h4 class="center">Список судей пока пуст</h4>
+    {% else %}
+    <div class="table-caption">Список судей</div>
+    <table id="table">
+        <thead>
+        <tr>
+            {% for value in title %}
+            <th>{{ value }}</th>
+            {% endfor %}
+            <!--            <th><input type="checkbox"/></th>-->
+        </tr>
+        </thead>
+        <tbody>
+        {% for judge in judges %}
+        <tr>
+
+            <td>{{judge.id}}</td>
+            <td>{{judge.name}}</td>
+            <td>{{judge.patronymic}}</td>
+            <td>{{judge.last_name}}</td>
+            <td>{{judge.post}}</td>
+            <td>{{judge.regalia}}</td>
+            <td>{{judge.organization}}</td>
+            <td>{{ judge.get_status_display }}</td>
+<!--            для отображения верной должности-->
+            <td>
+                {% for key,item in competitions.items %}
+                {% if key == judge.id %}
+                {% for it in item %}
+                {{it}}<br>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+            </td>
+
+            <td class="actions"><a href="{% url 'edit_judge' pk=judge.id %}">Edit</a>
+                | <a href="{% url 'delete_judge' pk=judge.id %}">Delete</a></td>
+            <!--            <td class="checkbox"><input type="checkbox"/></td>-->
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <div class="container">
+        <a href="{% url 'add_judge' %}" class="btn a_btn">Добавить</a>
+    </div>
+</div>
+
+{% endblock %}
