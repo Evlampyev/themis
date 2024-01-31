@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseRedirect
@@ -18,7 +19,10 @@ JUDGE_TABLE_TITLE = ["№ п\п", 'Имя', "Отчество", "Фамилия"
                      "Место работы", "Статус", 'Соревнование', "Редактор"]
 
 
+@login_required
 def edit_judges(request):
+    """Редактирование списка судей"""
+    # @login_required - декоратор для проверки авторизации
     # judges = Judge.objects.all()
     judges = Judge.objects.filter(is_active=True).order_by('last_name')
     competitions_dict = {}
@@ -35,7 +39,7 @@ def edit_judges(request):
 
 
 def delete_judge(request, pk):
-    """Delete judge on pk"""
+    """Удаление судьи"""
     judge = Judge.objects.get(id=pk)
     print(f" For delete {judge = }")
     # judge.delete()
@@ -47,6 +51,7 @@ def delete_judge(request, pk):
 
 
 def add_judge(request):
+    """Добавление судьи"""
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -78,6 +83,7 @@ def add_judge(request):
 
 
 def edit_judge(request, pk):
+    """Редактирование судьи"""
     judge = get_object_or_404(Judge, id=pk)
 
     if request.method == 'GET':

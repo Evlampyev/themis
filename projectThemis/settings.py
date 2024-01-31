@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     'app_for_competitions',
     'app_main',
     'users',
+    'debug_toolbar',
 
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -119,10 +121,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 LOGIN_REDIRECT_URL = 'home'  # URL-адрес, на который перенаправляет после успешной авторизации;
-# LOGIN_URL = 'home'  # URL-адрес, на который следует перенаправить неавторизованного пользователя
-#                     # при попытке посетить закрытую страницу сайта;
+LOGIN_URL = 'home'  # URL-адрес, на который следует перенаправить неавторизованного пользователя
+                    # при попытке посетить закрытую страницу сайта;
 LOGOUT_REDIRECT_URL = 'about'  # URL-адрес, на который перенаправляется пользователь после выхода.
 
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

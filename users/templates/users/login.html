@@ -6,6 +6,11 @@
 <form method="post">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}"/>
+<!--    http://127.0.0.1:8000/users/login/?next=/addpage/-->
+
+<!--    Он содержит URL-адрес страницы, на которую следует сделать перенаправление после успешной авторизации. В данном-->
+<!--    случае, мы попадаем на страницу добавления статей. Причем, этот параметр next имеет более высокий приоритет, чем-->
+<!--    параметр LOGIN_REDIRECT_URL, прописанный в пакете конфигурации.-->
     <div class="form-error">{{ form.non_field_errors }}</div>
     {% for f in form %}
     <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
