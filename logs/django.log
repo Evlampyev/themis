@@ -1,38 +1,24 @@
-[INFO    :            app_main.views] - 2024-01-31 23:45:03,401 : index @ 0012: Главная страница
-[INFO    :             django.server] - 2024-01-31 23:45:03,441 : log_message @ 0212: "GET / HTTP/1.1" 200 12548
-[INFO    :             django.server] - 2024-01-31 23:45:05,002 : log_message @ 0212: "GET /admin/ HTTP/1.1" 302 0
-[INFO    :             django.server] - 2024-01-31 23:45:05,085 : log_message @ 0212: "GET /admin/login/?next=/admin/ HTTP/1.1" 200 14599
-[INFO    :             django.server] - 2024-01-31 23:45:05,838 : log_message @ 0212: "GET /admin/ HTTP/1.1" 302 0
-[INFO    :             django.server] - 2024-01-31 23:45:05,890 : log_message @ 0212: "GET /admin/login/?next=/admin/ HTTP/1.1" 200 14599
-[INFO    :             django.server] - 2024-01-31 23:45:08,613 : log_message @ 0212: "POST /admin/login/?next=/admin/ HTTP/1.1" 200 14862
-[INFO    :             django.server] - 2024-01-31 23:45:16,133 : log_message @ 0212: "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
-[INFO    :             django.server] - 2024-01-31 23:45:16,238 : log_message @ 0212: "GET /admin/ HTTP/1.1" 200 21991
-[INFO    :             django.server] - 2024-01-31 23:45:24,227 : log_message @ 0212: "GET /admin/auth/group/ HTTP/1.1" 200 21517
-[INFO    :             django.server] - 2024-01-31 23:45:24,289 : log_message @ 0212: "GET /admin/jsi18n/ HTTP/1.1" 200 17546
-[INFO    :             django.server] - 2024-01-31 23:45:38,764 : log_message @ 0212: "GET /admin/auth/group/1/change/ HTTP/1.1" 200 25122
-[INFO    :             django.server] - 2024-01-31 23:45:38,843 : log_message @ 0212: "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
-[INFO    :             django.server] - 2024-01-31 23:45:38,844 : log_message @ 0212: "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15492
-[INFO    :             django.server] - 2024-01-31 23:45:38,853 : log_message @ 0212: "GET /admin/jsi18n/ HTTP/1.1" 200 17546
-[INFO    :             django.server] - 2024-01-31 23:45:38,894 : log_message @ 0212: "GET /static/admin/img/icon-unknown-alt.svg HTTP/1.1" 200 655
-[INFO    :             django.server] - 2024-01-31 23:45:38,894 : log_message @ 0212: "GET /static/admin/img/icon-unknown.svg HTTP/1.1" 200 655
-[INFO    :             django.server] - 2024-01-31 23:45:38,894 : log_message @ 0212: "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
-[INFO    :             django.server] - 2024-01-31 23:46:02,672 : log_message @ 0212: "POST /admin/auth/group/1/change/ HTTP/1.1" 302 0
-[INFO    :             django.server] - 2024-01-31 23:46:02,737 : log_message @ 0212: "GET /admin/auth/group/ HTTP/1.1" 200 21747
-[INFO    :             django.server] - 2024-01-31 23:46:02,796 : log_message @ 0212: "GET /admin/jsi18n/ HTTP/1.1" 200 17546
-[INFO    :             django.server] - 2024-01-31 23:46:02,819 : log_message @ 0212: "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
-[INFO    :             django.server] - 2024-01-31 23:46:04,259 : log_message @ 0212: "GET /admin/auth/group/3/change/ HTTP/1.1" 200 24992
-[INFO    :             django.server] - 2024-01-31 23:46:04,311 : log_message @ 0212: "GET /admin/jsi18n/ HTTP/1.1" 200 17546
-[INFO    :            app_main.views] - 2024-01-31 23:47:17,233 : index @ 0012: Главная страница
-[INFO    :             django.server] - 2024-01-31 23:47:17,261 : log_message @ 0212: "GET / HTTP/1.1" 200 12524
-[INFO    :             django.server] - 2024-01-31 23:47:17,345 : log_message @ 0212: "GET /static/image/app_main/cat_1.jpg HTTP/1.1" 304 0
-[INFO    :             django.server] - 2024-01-31 23:47:17,346 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
-[INFO    :             django.server] - 2024-01-31 23:47:17,346 : log_message @ 0212: "GET /static/image/app_main/cat_2.jpg HTTP/1.1" 304 0
-[INFO    :             django.server] - 2024-01-31 23:47:22,437 : log_message @ 0212: "POST /admin/auth/group/3/change/ HTTP/1.1" 302 0
-[INFO    :             django.server] - 2024-01-31 23:47:22,536 : log_message @ 0212: "GET /admin/auth/group/ HTTP/1.1" 200 21744
-[INFO    :             django.server] - 2024-01-31 23:47:22,590 : log_message @ 0212: "GET /admin/jsi18n/ HTTP/1.1" 200 17546
-[INFO    :             django.server] - 2024-01-31 23:47:30,617 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 19361
-[INFO    :             django.server] - 2024-01-31 23:47:32,148 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 15854
-[INFO    :             django.server] - 2024-01-31 23:47:46,216 : log_message @ 0212: "GET /users/logout/ HTTP/1.1" 302 0
-[INFO    :            app_main.views] - 2024-01-31 23:47:46,224 : about @ 0022: Загружена страница обо мне
-[INFO    :             django.server] - 2024-01-31 23:47:46,282 : log_message @ 0212: "GET /about/ HTTP/1.1" 200 12116
-[INFO    :             django.server] - 2024-01-31 23:47:53,628 : log_message @ 0212: "GET /users/login/ HTTP/1.1" 200 13349
+[INFO    :             django.server] - 2024-02-01 00:50:24,127 : log_message @ 0212: "GET /users/register/ HTTP/1.1" 200 13202
+[INFO    :             django.server] - 2024-02-01 00:50:24,153 : log_message @ 0212: "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-01 00:50:24,153 : log_message @ 0212: "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-01 00:50:24,162 : log_message @ 0212: "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-01 00:50:24,169 : log_message @ 0212: "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 304 0
+[INFO    :            app_main.views] - 2024-02-01 00:50:26,700 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-01 00:50:26,714 : log_message @ 0212: "GET / HTTP/1.1" 200 12521
+[INFO    :             django.server] - 2024-02-01 00:50:28,299 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 302 0
+[INFO    :            app_main.views] - 2024-02-01 00:50:28,307 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-01 00:50:28,318 : log_message @ 0212: "GET /?next=/judges/all/ HTTP/1.1" 200 12539
+[INFO    :             django.server] - 2024-02-01 00:50:29,479 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 15844
+[INFO    :             django.server] - 2024-02-01 00:50:31,265 : log_message @ 0212: "GET /users/register/ HTTP/1.1" 200 13202
+[INFO    :             django.server] - 2024-02-01 00:50:49,111 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 13544
+[INFO    :             django.server] - 2024-02-01 00:51:14,639 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 13638
+[INFO    :             django.server] - 2024-02-01 00:51:25,528 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 13545
+[INFO    :             django.server] - 2024-02-01 00:51:50,426 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 12250
+[INFO    :             django.server] - 2024-02-01 00:51:54,567 : log_message @ 0212: "GET /users/login/ HTTP/1.1" 200 13322
+[INFO    :             django.server] - 2024-02-01 00:51:57,316 : log_message @ 0212: "POST /users/login/ HTTP/1.1" 302 0
+[INFO    :            app_main.views] - 2024-02-01 00:51:57,325 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-01 00:51:57,348 : log_message @ 0212: "GET / HTTP/1.1" 200 12496
+[INFO    :             django.server] - 2024-02-01 00:52:11,157 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 19333
+[INFO    :             django.server] - 2024-02-01 00:52:18,127 : log_message @ 0212: "GET /users/logout/ HTTP/1.1" 302 0
+[INFO    :            app_main.views] - 2024-02-01 00:52:18,135 : about @ 0022: Загружена страница обо мне
+[INFO    :             django.server] - 2024-02-01 00:52:18,147 : log_message @ 0212: "GET /about/ HTTP/1.1" 200 12089

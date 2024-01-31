@@ -27,7 +27,7 @@
             <li><a class="a_menu" href="#">Судья</a></li>
             <li><a class="a_menu" href="#">Наблюдатель</a>
                 <ul>
-                    <li><a class="a_menu" href="#">Все этапы активного соревнования</a></li>
+                    <li><a class="a_menu" href="#">Этапы конкурса</a></li>
 
                 </ul>
             </li>
@@ -35,11 +35,11 @@
             <li><a class="a_menu" href="{% url 'about' %}">Обо мне</a></li>
             <div class="container enter">
                 {% if user.is_authenticated %}
-                    <div class="user_name">{{ user.username }}</div>
-                    <a href="{% url 'users:logout' %}" class="btn a_btn">Выйти</a>
+                <div class="user_name">{{ user.username }}</div>
+                <a href="{% url 'users:logout' %}" class="btn a_btn">Выйти</a>
                 {% else %}
-                    <a href="{% url 'users:login' %}" class="btn a_btn">Войти</a>
-                    <a href="#" class="btn a_btn">Регистрация</a>
+                <a href="{% url 'users:login' %}" class="btn a_btn">Войти</a>
+                <a href="{% url 'users:register' %}" class="btn a_btn">Регистрация</a>
                 {% endif %}
 
             </div>
@@ -48,7 +48,7 @@
 
     <main>
         {% block content %}
-            <h2>Это базовый шаблон</h2>
+        <h2>Это базовый шаблон</h2>
 
 
         {% endblock %}
@@ -56,13 +56,13 @@
 
     <footer>
         {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert {% if message.tags %}alert-{{ message.tags }}" {% endif %}>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}" {% endif %}>
+                {{ message }}
             </div>
+            {% endfor %}
+        </div>
         {% endif %}
     </footer>
 </div>
