@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block title %}
-    Редактирование судей
+Редактирование судей
 {% endblock %}
 
 {% block content %}
 <div class="row">
-    {% if not judges %}
+    {% if not users %}
     <h4 class="center">Список судей пока пуст</h4>
     {% else %}
     <div class="table-caption">Список судей</div>
@@ -15,24 +15,31 @@
         <thead>
         <tr>
             {% for value in title %}
+            {% if value != 'Редактор' %}
             <th>{{ value }}</th>
+            {% else %}
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+            <th>{{ value }}</th>
+            {% endif %}
+            {% endif %}
             {% endfor %}
+
             <!--            <th><input type="checkbox"/></th>-->
         </tr>
         </thead>
         <tbody>
-        {% for judge in judges %}
+        {% for j_user in users %}
         <tr>
 
-            <td>{{judge.id}}</td>
-            <td>{{judge.name}}</td>
-            <td>{{judge.patronymic}}</td>
-            <td>{{judge.last_name}}</td>
-            <td>{{judge.post}}</td>
-            <td>{{judge.regalia}}</td>
-            <td>{{judge.organization}}</td>
-            <td>{{ judge.get_status_display }}</td>
-<!--            для отображения верной должности-->
+            <td>{{ j_user.id }}</td>
+            <td>{{ j_user.first_name }}</td>
+            <td>{{ j_user.judge.patronymic }}</td>
+            <td>{{ j_user.last_name }}</td>
+            <td>{{ j_user.judge.post }}</td>
+            <td>{{ j_user.judge.regalia }}</td>
+            <td>{{ j_user.judge.organization }}</td>
+            <td>{{ j_user.judge.get_status_display }}</td>
+            <!--            для отображения верной должности-->
             <td>
                 {% for key,item in competitions.items %}
                 {% if key == judge.id %}
@@ -42,9 +49,10 @@
                 {% endif %}
                 {% endfor %}
             </td>
-
-            <td class="actions"><a href="{% url 'edit_judge' pk=judge.id %}">Edit</a>
-                | <a href="{% url 'delete_judge' pk=judge.id %}">Delete</a></td>
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+            <td class="actions"><a href="{% url 'edit_judge' pk=j_user.id %}">Edit</a>
+                | <a href="{% url 'delete_judge' pk=j_user.id %}">Delete</a></td>
+            {% endif %}
             <!--            <td class="checkbox"><input type="checkbox"/></td>-->
         </tr>
         {% endfor %}
@@ -53,7 +61,9 @@
     {% endif %}
 
     <div class="container">
+        {% if user.judge.status == 'M' or user.judge.status == 'J' %}
         <a href="{% url 'add_judge' %}" class="btn a_btn">Добавить</a>
+        {% endif %}
     </div>
 </div>
 

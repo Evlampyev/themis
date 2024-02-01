@@ -1,5 +1,5 @@
 from django.urls import path
-from .views_1 import edit_judges, delete_judge, add_judge, edit_judge
+from .views import edit_judges, delete_judge, add_judge, edit_judge
 
 
 urlpatterns = [

@@ -35,7 +35,7 @@
             <li><a class="a_menu" href="{% url 'about' %}">Обо мне</a></li>
             <div class="container enter">
                 {% if user.is_authenticated %}
-                <div class="user_name">{{ user.username }}</div>
+                <div class="user_name">{{user.judge.status }} : {{ user.username }}</div>
                 <a href="{% url 'users:logout' %}" class="btn a_btn">Выйти</a>
                 {% else %}
                 <a href="{% url 'users:login' %}" class="btn a_btn">Войти</a>

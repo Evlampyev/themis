@@ -12,7 +12,13 @@
         <thead>
         <tr>
             {% for value in title %}
+            {% if value != 'Редактор' %}
             <th>{{ value }}</th>
+            {% else %}
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+            <th>{{ value }}</th>
+            {% endif %}
+            {% endif %}
             {% endfor %}
             <!--            <th><input type="checkbox"/></th>-->
         </tr>
@@ -25,6 +31,8 @@
             <td>{{competition.fullname}}</td>
             <td>{{competition.date}}</td>
             <td>
+                 {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+
                 <div class="container">
                     <a href="{% url 'competition_activate' pk=competition.id %}" class="btn a_btn">
                         {% if competition.active %}
@@ -34,17 +42,27 @@
                         {% endif %}
                     </a>
                 </div>
+                {% else %}
+                {% if competition.active %}
+                    <span>Активен</span>
+                {% else %}
+                    <span>Не активен</span>
+                {% endif %}
+                {% endif %}
             </td>
-
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
             <td class="actions"><a href="{% url 'edit_competition' pk=competition.id %}">Edit</a> | <a
                     href="{% url 'delete_competition' pk=competition.id %}">Delete</a></td>
+            {% endif %}
             <!--            <td class="checkbox"><input type="checkbox"/></td>-->
         </tr>
         {% endfor %}
         </tbody>
     </table>
+    {% if user.judge.status == 'M' or user.judge.status == 'J' %}
     <div class="container">
         <a href="{% url 'add_competition' %}" class="btn a_btn">Добавить</a>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -14,10 +14,10 @@ sys.path.insert(0, os.path.abspath('..'))
 
 class Judge(models.Model):
     STATUSES = (
-        ('M', 'главный судья'),
-        ('J', 'судья'),
-        ('S', 'секретарь'),
-        ('O', 'наблюдатель'),
+        ('M', 'Главный судья'),
+        ('J', 'Судья'),
+        ('S', 'Секретарь'),
+        ('O', 'Наблюдатель'),
     )
 
     class Meta:
@@ -35,12 +35,12 @@ class Judge(models.Model):
     competitions = models.ManyToManyField(Competition, blank=True, default='Нет')
 
     def __str__(self):
-        last_name = User.objects.get(id=self.user).last_name
-        first_name = User.objects.get(id=self.user).first_name
+        last_name = User.objects.get(id=self.user_id).last_name
+        first_name = User.objects.get(id=self.user_id).first_name
         patronymic = ''
         if self.patronymic is not None:
             patronymic = self.patronymic
-        return f"{self.status}: {last_name} {first_name} {patronymic}."
+        return f"{self.get_status_display()}: {last_name} {first_name} {patronymic}."
 
 @receiver(post_save, sender=User)
 def create_user_judge(sender, instance, created, **kwargs):
