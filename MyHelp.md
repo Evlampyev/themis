@@ -15,3 +15,18 @@
 (вcтроенного) со своей моделью для авторизации и всего остального
 
 * Стратегии расширения [Django User Model](https://habr.com/ru/articles/313764/)
+
+
+
+#### развернуть на vds с debian/ubuntu:
+1. apt install git
+2. mkdir project
+3. git clone...
+4. apt install python3.11-venv
+5. python3 -m venv venv
+6. pip install -r project/requirements.txt 
+7. mkdir logs
+8. python3.11  manage.py migrate
+9. python3.11  manage.py runserver
+10. через nginx выбрасываем в интернет, 5 минут, сайт готов
+> cerbot для бесплатного сертификата, ну и свой домен для доменного имени

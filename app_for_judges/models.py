@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 
 class Judge(models.Model):
+    """Судьи, привязанные к User"""
     STATUSES = (
         ('M', 'Главный судья'),
         ('J', 'Судья'),

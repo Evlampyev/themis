@@ -1,0 +1,4 @@
+[INFO    :             django.server] - 2024-02-02 01:25:41,252 : log_message @ 0212: "GET /judges/edit/3/ HTTP/1.1" 200 14073
+[INFO    :             django.server] - 2024-02-02 01:25:56,569 : log_message @ 0212: "POST /judges/edit/3/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-02 01:25:56,627 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 16142
+[INFO    :             django.server] - 2024-02-02 01:26:21,977 : log_message @ 0212: "GET /judges/edit/3/ HTTP/1.1" 200 14104
