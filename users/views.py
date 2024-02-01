@@ -3,6 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 
 from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView
 
 from .forms import LoginUserForm, RegisterUserForm
 
@@ -19,14 +20,8 @@ def logout_view(request):
     return redirect('about')  # на главную страницу сайта
 
 
-def register(request):
-    if request.method == "POST":
-        form = RegisterUserForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)  # создание объекта без сохранения в БД
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            return render(request, 'users/register_done.html')
-    else:
-        form = RegisterUserForm()
-    return render(request, 'users/register.html', {'form': form})
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'users/register.html'
+    extra_context = {'title': "Регистрация"}
+    success_url = reverse_lazy('users:login')

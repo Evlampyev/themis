@@ -1,7 +1,10 @@
-from django.db import models
 from django.utils.translation import gettext_lazy as _
 from app_for_competitions.models import Competition  # не обращать внимание на красноту
 import sys, os
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 sys.path.insert(0, os.path.abspath('..'))
 
@@ -9,21 +12,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # Create your models here.
 
 
-class User(models.Model):
-    class Meta:
-        abstract = True  # данное поле указывает, что класс абстрактный
-        # и что для него не нужно создавать таблицу
-
-    name = models.CharField(_('Имя'), max_length=25)
-    patronymic = models.CharField(_('Отчество'), max_length=25, default=None)
-    last_name = models.CharField(_('Фамилия'), max_length=25)
-    is_active = models.BooleanField(_('Активировать'), default=True)
-
-    def __str__(self):
-        return f"{self.last_name} {self.name}"
-
-
-class Judge(User):
+class Judge(models.Model):
     STATUSES = (
         ('M', 'главный судья'),
         ('J', 'судья'),
@@ -35,16 +24,34 @@ class Judge(User):
         db_table = 'judges'
         verbose_name = _('Судьи')
 
-    post = models.CharField(_('Занимаемая должность'), max_length=100)
-    regalia = models.TextField(_('Заслуги и регалии'), default=None)
-    organization = models.CharField(_('Место работы'), max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # связь Judge с User один к одному
+    patronymic = models.CharField(_('Отчество'), max_length=25, null=True, blank=True, default=None)
+    post = models.CharField(_('Занимаемая должность'), max_length=100, default='Преподаватель ОД (математика, информатика и ИКТ')
+    regalia = models.TextField(_('Заслуги и регалии'), default='Преподаватель высшей категории')
+    organization = models.CharField(_('Место работы'), max_length=100, default='Оренбургское ПКУ')
     status = models.CharField(_('Статус на соревнованиях'), max_length=1,
                               choices=STATUSES, default='O')
     competitions = models.ManyToManyField(Competition, blank=True, default='Нет')
 
     def __str__(self):
-        return f"{self.status}: {self.last_name} {self.name}. {self.patronymic}."
+        last_name = User.objects.get(id=self.user).last_name
+        first_name = User.objects.get(id=self.user).first_name
+        patronymic = ''
+        if self.patronymic is not None:
+            patronymic = self.patronymic
+        return f"{self.status}: {last_name} {first_name} {patronymic}."
 
-    def __eq__(self, other):
-        return (self.name == other.name and self.patronymic == other.patronymic
-                and self.last_name == other.last_name)
+@receiver(post_save, sender=User)
+def create_user_judge(sender, instance, created, **kwargs):
+    """При создании User создаем Judge"""
+    if created:
+        Judge.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_judge(sender, instance, **kwargs):
+    """При сохранении User сохраняем Judge"""
+    instance.judge.save()
+
+

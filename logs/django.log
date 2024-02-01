@@ -1,24 +1,63 @@
-[INFO    :             django.server] - 2024-02-01 00:50:24,127 : log_message @ 0212: "GET /users/register/ HTTP/1.1" 200 13202
-[INFO    :             django.server] - 2024-02-01 00:50:24,153 : log_message @ 0212: "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
-[INFO    :             django.server] - 2024-02-01 00:50:24,153 : log_message @ 0212: "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
-[INFO    :             django.server] - 2024-02-01 00:50:24,162 : log_message @ 0212: "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
-[INFO    :             django.server] - 2024-02-01 00:50:24,169 : log_message @ 0212: "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 304 0
-[INFO    :            app_main.views] - 2024-02-01 00:50:26,700 : index @ 0012: Главная страница
-[INFO    :             django.server] - 2024-02-01 00:50:26,714 : log_message @ 0212: "GET / HTTP/1.1" 200 12521
-[INFO    :             django.server] - 2024-02-01 00:50:28,299 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 302 0
-[INFO    :            app_main.views] - 2024-02-01 00:50:28,307 : index @ 0012: Главная страница
-[INFO    :             django.server] - 2024-02-01 00:50:28,318 : log_message @ 0212: "GET /?next=/judges/all/ HTTP/1.1" 200 12539
-[INFO    :             django.server] - 2024-02-01 00:50:29,479 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 15844
-[INFO    :             django.server] - 2024-02-01 00:50:31,265 : log_message @ 0212: "GET /users/register/ HTTP/1.1" 200 13202
-[INFO    :             django.server] - 2024-02-01 00:50:49,111 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 13544
-[INFO    :             django.server] - 2024-02-01 00:51:14,639 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 13638
-[INFO    :             django.server] - 2024-02-01 00:51:25,528 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 13545
-[INFO    :             django.server] - 2024-02-01 00:51:50,426 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 200 12250
-[INFO    :             django.server] - 2024-02-01 00:51:54,567 : log_message @ 0212: "GET /users/login/ HTTP/1.1" 200 13322
-[INFO    :             django.server] - 2024-02-01 00:51:57,316 : log_message @ 0212: "POST /users/login/ HTTP/1.1" 302 0
-[INFO    :            app_main.views] - 2024-02-01 00:51:57,325 : index @ 0012: Главная страница
-[INFO    :             django.server] - 2024-02-01 00:51:57,348 : log_message @ 0212: "GET / HTTP/1.1" 200 12496
-[INFO    :             django.server] - 2024-02-01 00:52:11,157 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 19333
-[INFO    :             django.server] - 2024-02-01 00:52:18,127 : log_message @ 0212: "GET /users/logout/ HTTP/1.1" 302 0
-[INFO    :            app_main.views] - 2024-02-01 00:52:18,135 : about @ 0022: Загружена страница обо мне
-[INFO    :             django.server] - 2024-02-01 00:52:18,147 : log_message @ 0212: "GET /about/ HTTP/1.1" 200 12089
+[INFO    :             django.server] - 2024-02-01 22:17:55,596 : log_message @ 0212: "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-01 22:17:55,684 : log_message @ 0212: "GET /admin/ HTTP/1.1" 200 16980
+[INFO    :             django.server] - 2024-02-01 22:18:02,067 : log_message @ 0212: "GET /admin/app_for_competitions/ HTTP/1.1" 200 15844
+[INFO    :             django.server] - 2024-02-01 22:20:09,457 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 12750
+[INFO    :             django.server] - 2024-02-01 22:20:13,384 : log_message @ 0212: "GET /competitions/add/ HTTP/1.1" 200 12975
+[INFO    : app_for_competitions.views] - 2024-02-01 22:20:43,300 : add_competition @ 0042: Добавили конкурс: БПЛА - 2024
+[INFO    :             django.server] - 2024-02-01 22:20:43,313 : log_message @ 0212: "POST /competitions/add/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-01 22:20:43,347 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 13764
+[ERROR   :            django.request] - 2024-02-01 22:20:49,010 : log_response @ 0241: Internal Server Error: /judges/all/
+Traceback (most recent call last):
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\themis\app_for_judges\views_1.py", line 27, in edit_judges
+    judges = Judge.objects.filter(is_active=True).order_by('last_name')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1602, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1634, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1484, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1296, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\sql\query.py", line 1761, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_active' into field. Choices are: competitions, id, organization, patronymic, post, regalia, status, user, user_id
+[ERROR   :             django.server] - 2024-02-01 22:20:49,032 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 500 130143
+[INFO    :            app_main.views] - 2024-02-01 22:21:32,837 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-01 22:21:32,864 : log_message @ 0212: "GET / HTTP/1.1" 200 12484
+[INFO    :            app_main.views] - 2024-02-01 22:21:33,178 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-01 22:21:33,219 : log_message @ 0212: "GET / HTTP/1.1" 200 12484
+[INFO    :             django.server] - 2024-02-01 22:21:35,555 : log_message @ 0212: "GET /users/logout/ HTTP/1.1" 302 0
+[INFO    :            app_main.views] - 2024-02-01 22:21:35,562 : about @ 0022: Загружена страница обо мне
+[INFO    :             django.server] - 2024-02-01 22:21:35,574 : log_message @ 0212: "GET /about/ HTTP/1.1" 200 12091
+[INFO    :             django.server] - 2024-02-01 22:21:39,081 : log_message @ 0212: "GET /users/register/ HTTP/1.1" 200 13416
+[INFO    :             django.server] - 2024-02-01 22:22:11,788 : log_message @ 0212: "POST /users/register/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-01 22:22:11,813 : log_message @ 0212: "GET /users/login/ HTTP/1.1" 200 13324
+[INFO    :             django.server] - 2024-02-01 22:22:13,616 : log_message @ 0212: "POST /users/login/ HTTP/1.1" 302 0
+[INFO    :            app_main.views] - 2024-02-01 22:22:13,625 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-01 22:22:13,646 : log_message @ 0212: "GET / HTTP/1.1" 200 12489
+[INFO    :             django.server] - 2024-02-01 22:22:20,245 : log_message @ 0212: "GET /admin/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-01 22:22:20,305 : log_message @ 0212: "GET /admin/login/?next=/admin/ HTTP/1.1" 200 14179
