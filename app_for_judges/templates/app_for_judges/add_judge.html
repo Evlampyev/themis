@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+
+<h2 class="center">{% if id %} Изменение данных пользователя {% else %} Новый пользователь {% endif %}</h2>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ judge_form.as_p }}
+    <input type="submit" value="Сохранить"/>
+</form>
+
+{% endblock content %}

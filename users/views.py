@@ -17,7 +17,7 @@ class LoginUser(LoginView):
 
 def logout_view(request):
     logout(request)
-    return redirect('about')  # на главную страницу сайта
+    return redirect('about')  # на страницу обо мне
 
 
 class RegisterUser(CreateView):

@@ -1,4 +1,17 @@
-[INFO    :             django.server] - 2024-02-02 01:25:41,252 : log_message @ 0212: "GET /judges/edit/3/ HTTP/1.1" 200 14073
-[INFO    :             django.server] - 2024-02-02 01:25:56,569 : log_message @ 0212: "POST /judges/edit/3/ HTTP/1.1" 302 0
-[INFO    :             django.server] - 2024-02-02 01:25:56,627 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 16142
-[INFO    :             django.server] - 2024-02-02 01:26:21,977 : log_message @ 0212: "GET /judges/edit/3/ HTTP/1.1" 200 14104
+[INFO    :            app_main.views] - 2024-02-02 17:16:06,662 : index @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-02 17:16:06,808 : log_message @ 0212: "GET / HTTP/1.1" 200 12489
+[INFO    :             django.server] - 2024-02-02 17:16:06,845 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-02 17:16:06,849 : log_message @ 0212: "GET /static/image/app_main/cat_1.jpg HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-02 17:16:06,849 : log_message @ 0212: "GET /static/image/app_main/cat_2.jpg HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-02 17:16:06,850 : log_message @ 0212: "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-02 17:16:06,864 : log_message @ 0212: "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-02 17:16:06,865 : log_message @ 0212: "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-02 17:16:06,883 : log_message @ 0212: "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-02 17:16:09,728 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 20146
+[INFO    :             django.server] - 2024-02-02 17:16:12,630 : log_message @ 0212: "GET /judges/add/ HTTP/1.1" 200 14186
+[INFO    :      app_for_judges.views] - 2024-02-02 17:16:47,521 : add_judge @ 0086:  Трофимов Павел добавлен.
+[INFO    :             django.server] - 2024-02-02 17:16:47,564 : log_message @ 0212: "POST /judges/add/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-02 17:16:47,625 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 21681
+[INFO    :             django.server] - 2024-02-02 17:16:53,187 : log_message @ 0212: "GET /judges/edit/10/ HTTP/1.1" 200 14167
+[INFO    :             django.server] - 2024-02-02 17:17:07,095 : log_message @ 0212: "POST /judges/edit/10/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-02 17:17:07,147 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 21754

@@ -42,8 +42,8 @@ footer {
 
 .row {
     overflow: hidden;
-    width: 70%;
-    min-height: 75vh;
+    width: 80%;
+    min-height: 60vh;
     background-color: #CCFFFF;
     margin: 0 auto;
     border: 1px solid #123123;

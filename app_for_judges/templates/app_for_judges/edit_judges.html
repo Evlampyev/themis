@@ -42,7 +42,7 @@
             <!--            для отображения верной должности-->
             <td>
                 {% for key,item in competitions.items %}
-                {% if key == judge.id %}
+                {% if key == j_user.id %}
                 {% for it in item %}
                 {{it}}<br>
                 {% endfor %}
@@ -50,8 +50,9 @@
                 {% endfor %}
             </td>
             {% if user.judge.status == 'M' or user.judge.status == 'J' %}
-            <td class="actions"><a href="{% url 'edit_judge' pk=j_user.id %}">Edit</a>
-                | <a href="{% url 'delete_judge' pk=j_user.id %}">Delete</a></td>
+            <td class="actions"><a href="{% url 'edit_judge' pk=j_user.id %}">Изменить</a>
+                <br>
+                 <a href="{% url 'delete_judge' pk=j_user.id %}">Удалить</a></td>
             {% endif %}
             <!--            <td class="checkbox"><input type="checkbox"/></td>-->
         </tr>

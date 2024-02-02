@@ -28,7 +28,8 @@ class Judge(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # связь Judge с User один к одному
     patronymic = models.CharField(_('Отчество'), max_length=25, null=True, blank=True, default=None)
-    post = models.CharField(_('Занимаемая должность'), max_length=100, default='Преподаватель ОД (математика, информатика и ИКТ')
+    post = models.CharField(_('Занимаемая должность'), max_length=100,
+                            default='Преподаватель ОД (математика, информатика и ИКТ)')
     regalia = models.TextField(_('Заслуги и регалии'), default='Преподаватель высшей категории')
     organization = models.CharField(_('Место работы'), max_length=100, default='Оренбургское ПКУ')
     status = models.CharField(_('Статус на соревнованиях'), max_length=1,
@@ -43,6 +44,7 @@ class Judge(models.Model):
             patronymic = self.patronymic
         return f"{self.get_status_display()}: {last_name} {first_name} {patronymic}."
 
+
 @receiver(post_save, sender=User)
 def create_user_judge(sender, instance, created, **kwargs):
     """При создании User создаем Judge"""
@@ -54,5 +56,3 @@ def create_user_judge(sender, instance, created, **kwargs):
 def save_user_judge(sender, instance, **kwargs):
     """При сохранении User сохраняем Judge"""
     instance.judge.save()
-
-
