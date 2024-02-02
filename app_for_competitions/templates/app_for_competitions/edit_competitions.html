@@ -51,8 +51,8 @@
                 {% endif %}
             </td>
             {% if user.judge.status == 'M' or user.judge.status == 'J' %}
-            <td class="actions"><a href="{% url 'edit_competition' pk=competition.id %}">Edit</a> | <a
-                    href="{% url 'delete_competition' pk=competition.id %}">Delete</a></td>
+            <td class="actions"><a href="{% url 'edit_competition' pk=competition.id %}">Изменить</a><p></p><a
+                    href="{% url 'delete_competition' pk=competition.id %}">Удалить</a></td>
             {% endif %}
             <!--            <td class="checkbox"><input type="checkbox"/></td>-->
         </tr>

@@ -16,7 +16,14 @@
 <div class="wrapper">
     <header>
         <ul>
-            <li><a class="a_menu" href="{% url 'home' %}">Общие итоги</a></li>
+            <li>
+                <a class="a_menu_logo " href="{% url 'home' %}">
+                    <image class="logo" src="{% static 'image/femidalittle.png' %}">
+                </a>
+            </li>
+            <li><a class="a_menu" href="#">Итоги</a></li>
+            <li><a class="a_menu" href="#">Конкурс</a></li>
+
             <li><a class="a_menu" href="#">Главный судья</a>
                 <ul>
                     <li><a class="a_menu" href="{% url 'all_judges' %}">Судьи</a></li>

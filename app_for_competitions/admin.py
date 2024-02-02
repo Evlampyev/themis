@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Competition
+from .models import Competition, CompetitionTask
 
 
 # Register your models here.
@@ -12,4 +12,11 @@ class CompetitionAdmin(admin.ModelAdmin):
     search_help_text = "Поиск по полю Название конкурса"
 
 
+class CompetitionTaskAdmin(admin.ModelAdmin):
+    list_display = ['name', 'competition']
+    ordering = ['name', 'competition']
+    search_fields = ['name']
+    search_help_text = "Поиск по полю Название этапа'"
+
 admin.site.register(Competition, CompetitionAdmin)
+admin.site.register(CompetitionTask, CompetitionTaskAdmin)

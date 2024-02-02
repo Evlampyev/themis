@@ -23,7 +23,8 @@ class Judge(models.Model):
 
     class Meta:
         db_table = 'judges'
-        verbose_name = _('Судьи')
+        verbose_name = _('Судья')
+        verbose_name_plural = _('Судьи')
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # связь Judge с User один к одному

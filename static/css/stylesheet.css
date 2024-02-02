@@ -92,6 +92,24 @@ a:hover {
     background: #D43737; /*добавляем эффект при наведении*/
 }
 
+.a_menu_logo {
+    text-decoration: none; /*убираем подчеркивание текста ссылок*/
+    background: #819A32; /*добавляем фон к пункту меню*/
+    color: #fff; /*меняем цвет ссылок*/
+    padding: 0 4px; /*добавляем отступ*/
+    display: block;
+    border-right: 1px solid #677B27; /*добавляем бордюр справа*/
+    -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+    -o-transition: all 0.3s 0.01s ease;
+    -webkit-transition: all 0.3s 0.01s ease;
+}
+
+.logo {
+    margin: 3px auto 2px;
+    height: 42px;
+    /*line-height: 50px;*/
+ }
+
 .enter {
     float: right;
 }
@@ -442,3 +460,4 @@ input[type='submit'] {
     color: red;
     margin: 6px
 }
+
