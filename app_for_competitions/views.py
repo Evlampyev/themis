@@ -84,3 +84,8 @@ def edit_competition(request, pk):
         else:
             messages.error(request, 'Пожалуйста, исправьте следующие ошибки:')
             return render(request, 'app_for_competitions/edit_competition.html', {'form': form})
+
+
+def competition_result(request):
+    context = {'title': "Результаты конкурса"}
+    return render(request, 'app_for_competitions/competition_result.html', context)

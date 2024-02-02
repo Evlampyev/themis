@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import edit_competitions, add_competition, competition_activate, delete_competition, \
-    edit_competition
+    edit_competition,competition_result
 
 urlpatterns = [
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('delete/<int:pk>/', delete_competition, name='delete_competition'),
     path('edit/<int:pk>/', edit_competition, name='edit_competition'),
     path('activate/<int:pk>/', competition_activate, name='competition_activate'),
+    path('competition_result/', competition_result, name='competition_result'),
     # path('about/index', index, name='index'),
 
 ]

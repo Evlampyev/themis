@@ -21,28 +21,19 @@
                     <image class="logo" src="{% static 'image/femidalittle.png' %}">
                 </a>
             </li>
-            <li><a class="a_menu" href="#">Итоги</a></li>
-            <li><a class="a_menu" href="#">Конкурс</a></li>
-
-            <li><a class="a_menu" href="#">Главный судья</a>
+            <li><a class="a_menu" href="{% url 'competition_result' %}">Итоги дня</a></li>
+            <li><a class="a_menu" href="{% url 'all_competitions' %}">Конкурсы</a></li>
+            <li><a class="a_menu" href="{% url 'all_judges' %}">Судьи</a></li>
+            <li><a class="a_menu" href="#">Участники</a>
                 <ul>
-                    <li><a class="a_menu" href="{% url 'all_judges' %}">Судьи</a></li>
-                    <li><a class="a_menu" href="{% url 'all_competitions' %}">Конкурсы</a></li>
-                    <li><a class="a_menu" href="#">Этапы</a></li>
-                </ul>
-            </li>
-            <li><a class="a_menu" href="#">Судья</a></li>
-            <li><a class="a_menu" href="#">Наблюдатель</a>
-                <ul>
-                    <li><a class="a_menu" href="#">Этапы конкурса</a></li>
-
+                    <li><a class="a_menu" href="{% url 'participants_list' %}">Список</a></li>
                 </ul>
             </li>
             <li><a class="a_menu" href="#">Контакты</a></li>
             <li><a class="a_menu" href="{% url 'about' %}">Обо мне</a></li>
             <div class="container enter">
                 {% if user.is_authenticated %}
-                <div class="user_name">{{user.judge.status }} : {{ user.username }}</div>
+                <div class="user_name">{{user.judge.get_status_display }} : {{ user.username }}</div>
                 <a href="{% url 'users:logout' %}" class="btn a_btn">Выйти</a>
                 {% else %}
                 <a href="{% url 'users:login' %}" class="btn a_btn">Войти</a>
