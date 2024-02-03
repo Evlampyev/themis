@@ -42,7 +42,7 @@ def edit_judges(request):
         'competitions': competitions_dict,
         # 'user_status': user_status
     }
-    return render(request, 'app_for_judges/edit_judges.html', context=context)
+    return render(request, 'app_for_judges/view_judges.html', context=context)
 
 
 def delete_judge(request, pk):
@@ -136,3 +136,8 @@ def edit_judge(request, pk):
         else:
             messages.error(request, _('Пожалуйста, исправьте следующие ошибки:'))
             return render(request, 'app_for_judges/edit_judge.html', {'form': form})
+
+
+def participants_list(request):
+    context = {'title': 'Список участников'}
+    return render(request, 'app_for_judges/view_participants.html', context)

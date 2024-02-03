@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'app_for_competitions',
     'app_main',
     'users',
-    'app_for_participants',
+
     'debug_toolbar',
 
 ]

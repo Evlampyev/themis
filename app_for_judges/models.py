@@ -57,3 +57,41 @@ def create_user_judge(sender, instance, created, **kwargs):
 def save_user_judge(sender, instance, **kwargs):
     """При сохранении User сохраняем Judge"""
     instance.judge.save()
+
+
+class Participant(models.Model):
+    """Участники, НЕ привязанные к User"""
+
+    class Meta:
+        db_table = 'participants'
+        verbose_name = _('Участник')
+        verbose_name_plural = _('Участники')
+
+    team = models.ForeignKey('ParticipantsTeam', on_delete=models.SET_NULL, null=True, blank=True)
+    # models.SET_NULL: устанавливает NULL при удалении связанной строка из главной таблицы
+    # models.SET_DEFAULT: устанавливает значение по умолчанию для внешнего ключа в зависимой таблице
+    # team - может быть пустым
+    name = models.CharField(_('Имя'), max_length=25)
+    last_name = models.CharField(_('Фамилия'), max_length=25)
+    organization = models.CharField(_('Образовательное учреждение'), max_length=100,
+                                    default='ФГКОУ "Оренбургское ПКУ"')
+    birthday = models.DateField(_('Дата рождения'))
+
+    def __str__(self):
+        return f"{self.name} {self.last_name}"
+
+
+class ParticipantsTeam(models.Model):
+    """Участники - команды"""
+
+    class Meta:
+        db_table = 'participant_teams'
+        verbose_name = _('Участник - команда')
+        verbose_name_plural = _('Участники - команды')
+
+    name = models.CharField(_('Название команды'), max_length=50)
+    organization = models.CharField(_('Образовательное учреждение'), max_length=100,
+                                    default='ФГКОУ "Оренбургское ПКУ"')
+
+    def __str__(self):
+        return f"{self.name}"

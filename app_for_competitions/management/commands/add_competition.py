@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
-from appfirst.models import Competition
-
+from app_for_competitions.models import Competition
+from datetime import datetime
 
 class Command(BaseCommand):
     help = "Добавление Соревнования/Конкурса"
@@ -12,6 +12,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         name = kwargs.get('name')
         fullname = kwargs.get('fullname')
-        competition = Competition(name=name, fullname=fullname)
+        competition = Competition(name=name, fullname=fullname, date=datetime.now())
         competition.save()
         return f'Конкурс: "{name}" добавлен'

@@ -1,5 +1,0 @@
-[INFO    :            app_main.views] - 2024-02-03 21:12:46,389 : home @ 0012: Главная страница
-[INFO    :             django.server] - 2024-02-03 21:12:46,574 : log_message @ 0212: "GET / HTTP/1.1" 200 12429
-[INFO    :             django.server] - 2024-02-03 21:12:46,680 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
-[INFO    :            app_main.views] - 2024-02-03 21:12:48,694 : contacts @ 0028: Загружена страница контактов
-[INFO    :             django.server] - 2024-02-03 21:12:48,720 : log_message @ 0212: "GET /contacts/ HTTP/1.1" 200 12032
