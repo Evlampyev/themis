@@ -13,7 +13,7 @@ class Competition(models.Model):
         verbose_name = _('Конкурс') # наименование в админке в единственном числе
         verbose_name_plural = _('Конкурсы') # наименование в админке во множественном числе
 
-    name = models.CharField(_('Сокращенное название'), max_length=50)
+    name = models.CharField(_('Сокращенное название'), max_length=50, unique=True)
     fullname = models.CharField(_('Полное наименование конкурса'), max_length=200,
                                 default=None)
     date = models.DateField(_('Дата проведения'),

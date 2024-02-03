@@ -1,16 +1,16 @@
-from django.utils.translation import gettext_lazy as _
-from app_for_competitions.models import Competition  # не обращать внимание на красноту
-import sys, os
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.utils.translation import gettext_lazy as _
+from app_for_competitions.models import Competition
+import sys, os
+
 sys.path.insert(0, os.path.abspath('..'))
 
 
 # Create your models here.
-
 
 class Judge(models.Model):
     """Судьи, привязанные к User"""
@@ -76,6 +76,7 @@ class Participant(models.Model):
     organization = models.CharField(_('Образовательное учреждение'), max_length=100,
                                     default='ФГКОУ "Оренбургское ПКУ"')
     birthday = models.DateField(_('Дата рождения'))
+    competition = models.ForeignKey(Competition, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} {self.last_name}"
@@ -89,9 +90,10 @@ class ParticipantsTeam(models.Model):
         verbose_name = _('Участник - команда')
         verbose_name_plural = _('Участники - команды')
 
-    name = models.CharField(_('Название команды'), max_length=50)
+    name = models.CharField(_('Название команды'), max_length=50, unique=True)
     organization = models.CharField(_('Образовательное учреждение'), max_length=100,
                                     default='ФГКОУ "Оренбургское ПКУ"')
+    competition = models.ForeignKey(Competition, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"
