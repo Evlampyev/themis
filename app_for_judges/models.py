@@ -67,7 +67,8 @@ class Participant(models.Model):
         verbose_name = _('Участник')
         verbose_name_plural = _('Участники')
 
-    team = models.ForeignKey('ParticipantsTeam', on_delete=models.SET_NULL, null=True, blank=True)
+    team = models.ForeignKey('ParticipantsTeam', on_delete=models.SET_NULL, null=True, blank=True,
+                             verbose_name=_('Команда'))
     # models.SET_NULL: устанавливает NULL при удалении связанной строка из главной таблицы
     # models.SET_DEFAULT: устанавливает значение по умолчанию для внешнего ключа в зависимой таблице
     # team - может быть пустым
@@ -76,7 +77,8 @@ class Participant(models.Model):
     organization = models.CharField(_('Образовательное учреждение'), max_length=100,
                                     default='ФГКОУ "Оренбургское ПКУ"')
     birthday = models.DateField(_('Дата рождения'))
-    competition = models.ForeignKey(Competition, on_delete=models.SET_NULL, null=True, blank=True)
+    competition = models.ForeignKey(Competition, on_delete=models.SET_NULL, null=True, blank=True,
+                                    verbose_name=_('Соревнования'))
 
     def __str__(self):
         return f"{self.name} {self.last_name}"
@@ -93,7 +95,8 @@ class ParticipantsTeam(models.Model):
     name = models.CharField(_('Название команды'), max_length=50, unique=True)
     organization = models.CharField(_('Образовательное учреждение'), max_length=100,
                                     default='ФГКОУ "Оренбургское ПКУ"')
-    competition = models.ForeignKey(Competition, on_delete=models.SET_NULL, null=True, blank=True)
+    competition = models.ForeignKey(Competition, on_delete=models.SET_NULL, null=True, blank=True,
+                                    verbose_name=_('Соревнования'))
 
     def __str__(self):
         return f"{self.name}"
