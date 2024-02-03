@@ -2,12 +2,11 @@
 {% load static %}
 
 {% block title %}
-    Главная страница
+{{ title }}
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        <h2 class="center">Это главная страница</h2>
         <div class="col-3">
             <img class="cat" src="{% static 'image/app_main/cat_1.jpg' %}" alt="cat">
         </div>

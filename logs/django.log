@@ -1,7 +1,5 @@
-[INFO    :             django.server] - 2024-02-03 20:36:34,305 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 12035
-[INFO    :             django.server] - 2024-02-03 20:36:37,860 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 16639
-[INFO    :             django.server] - 2024-02-03 20:36:39,293 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13163
-[INFO    :             django.server] - 2024-02-03 20:36:42,112 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 12034
-[INFO    :             django.server] - 2024-02-03 20:36:49,564 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 21498
-[INFO    :             django.server] - 2024-02-03 20:36:54,691 : log_message @ 0212: "GET /participants/ HTTP/1.1" 200 11983
-[INFO    :   django.utils.autoreload] - 2024-02-03 20:39:21,857 : trigger_reload @ 0266: C:\themis\manage.py changed, reloading.
+[INFO    :            app_main.views] - 2024-02-03 21:12:46,389 : home @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-03 21:12:46,574 : log_message @ 0212: "GET / HTTP/1.1" 200 12429
+[INFO    :             django.server] - 2024-02-03 21:12:46,680 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :            app_main.views] - 2024-02-03 21:12:48,694 : contacts @ 0028: Загружена страница контактов
+[INFO    :             django.server] - 2024-02-03 21:12:48,720 : log_message @ 0212: "GET /contacts/ HTTP/1.1" 200 12032

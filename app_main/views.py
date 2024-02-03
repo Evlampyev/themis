@@ -7,7 +7,7 @@ from logging import getLogger
 logger = getLogger(__name__)
 
 
-def index(request):
+def home(request):
     context = {'info': ['Всем привет!', 'И добро пожаловать!']}
     logger.info('Главная страница')
     return render(request, 'app_main/index.html', context=context)
@@ -20,5 +20,11 @@ def base(request):
 
 def about(request):
     logger.info("Загружена страница обо мне")
+    context = {'title': 'Об авторе'}
+    return render(request, 'app_main/about.html', context)
 
-    return render(request, 'app_main/about.html')
+
+def contacts(request):
+    logger.info("Загружена страница контактов")
+    context = {'title': 'Контакты'}
+    return render(request, 'app_main/contacts.html', context)

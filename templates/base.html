@@ -29,7 +29,7 @@
                     <li><a class="a_menu" href="{% url 'participants_list' %}">Список</a></li>
                 </ul>
             </li>
-            <li><a class="a_menu" href="#">Контакты</a></li>
+            <li><a class="a_menu" href="{% url 'contacts' %}">Контакты</a></li>
             <li><a class="a_menu" href="{% url 'about' %}">Обо мне</a></li>
             <div class="container enter">
                 {% if user.is_authenticated %}
