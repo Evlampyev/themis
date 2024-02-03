@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from pathlib import Path
 from logging import getLogger
 from .forms import CompetitionForm
-from .models import Competition
+from .models import Competition, CompetitionTask
 from django.contrib import messages
 
 # Create your views here.
@@ -15,6 +16,7 @@ COMPETITIONS_TABLE_TITLE = ['№ п/п', 'Краткое название', "П�
 
 
 def edit_competitions(request):
+    """Просмотр списка конкурсов"""
     competitions = Competition.objects.all().order_by('name')
     context = dict()
     # print(competitions[0])
@@ -23,11 +25,15 @@ def edit_competitions(request):
     # for comp in competitions:
     #     print(comp.date)
     context['competitions'] = competitions
-    context['title'] = COMPETITIONS_TABLE_TITLE
-    return render(request, 'app_for_competitions/edit_competitions.html', context=context)
+    context['table_title'] = COMPETITIONS_TABLE_TITLE
+    context['title'] = "Конкурсы"
+
+    return render(request, 'app_for_competitions/view_competitions.html', context=context)
 
 
+@login_required
 def add_competition(request):
+    """Добавление конкурса"""
     if request.method == 'POST':
         form = CompetitionForm(request.POST)
         if form.is_valid():
@@ -47,15 +53,20 @@ def add_competition(request):
     return render(request, 'app_for_competitions/edit_competition.html', {'form': form})
 
 
+@login_required
 def competition_activate(request, pk):
+    """Активация конкурса
+    params: pk - id конкурса"""
     competition = Competition.objects.filter(id=pk).first()
     competition.active = not competition.active
     competition.save()
     messages.success(request, "Статус соревнования изменён")
     return redirect('all_competitions')
 
-
+@login_required
 def delete_competition(request, pk):
+    """Удаление конкурса
+    params: pk - id конкурса"""
     competition = Competition.objects.filter(id=pk)
     name = competition[0]
     competition.delete()
@@ -63,8 +74,10 @@ def delete_competition(request, pk):
     messages.success(request, f"Соревнование {name} удалено")
     return redirect('all_competitions')
 
-
+@login_required
 def edit_competition(request, pk):
+    """Редактирование конкурса
+    params: pk - id конкурса"""
     competition = get_object_or_404(Competition, id=pk)
 
     if request.method == 'GET':
@@ -87,5 +100,40 @@ def edit_competition(request, pk):
 
 
 def competition_result(request):
+    """Результаты конкурса на Итоги"""
     context = {'title': "Результаты конкурса"}
     return render(request, 'app_for_competitions/competition_result.html', context)
+
+
+def view_competition(request, pk):
+    competition = get_object_or_404(Competition, id=pk)
+    context = {'title': f"{competition.name}"}
+    competition_tasks = CompetitionTask.objects.filter(competition=competition)
+    context['competition_tasks'] = competition_tasks
+    context['competition_id'] = pk
+    return render(request, 'app_for_competitions/view_competition_tasks.html', context)
+
+@login_required
+def judge_task(request, pk, pc):
+    """Судейство этапа конкурса
+    params: pk - id этапа
+            pc - id конкурса
+    """
+    competition = Competition.objects.filter(id=pc).first()
+    competition_tasks = CompetitionTask.objects.filter(id=pk).first()
+    context = {'title': f"{competition.name}", 'competition_task': competition_tasks.name}
+
+    return render(request, 'app_for_competitions/judge_task.html',context)
+
+
+def view_task_result(request, pk, pc):
+    """Просмотр результатов этапа конкурса
+    params: pk - id этапа
+            pc - id конкурса
+    """
+    competition = Competition.objects.filter(id=pc).first()
+    competition_tasks = CompetitionTask.objects.filter(id=pk).first()
+    context = {'title': f"{competition.name}", 'competition_task': competition_tasks.name}
+
+    # в контексте должна быть таблица результатов этапа конкурса
+    return render(request, 'app_for_competitions/view_task_result.html', context)

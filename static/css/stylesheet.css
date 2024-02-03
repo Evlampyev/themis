@@ -41,8 +41,9 @@ footer {
 }
 
 .row {
+    /*Область построения таблицы*/
     overflow: hidden;
-    width: 80%;
+    max-width: 80%;
     min-height: 60vh;
     background-color: #CCFFFF;
     margin: 0 auto;
@@ -136,7 +137,7 @@ li:hover > ul > li {
     float: none; /*Убираем горизонтальное позиционирование*/
 }
 
-/* Далее таблица для редактирования судей */
+/* Далее таблица для многих страниц  */
 
 * {
     -moz-box-sizing: border-box;
@@ -169,6 +170,7 @@ table {
     background: #fff;
     font-size: 14px;
     font-size: 1.4rem;
+
 }
 
 @media only all and (min-width: 760px) {

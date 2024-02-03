@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h3 class="center">{{ title }}</h3>
+
+<div class="row">
+    <div class="table-caption">Этапы конкурса</div>
+    <table id="table">
+        <tbody>
+        {% for task in competition_tasks %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td style="text-align: left">{{ task.name }}</td>
+            <td><a href="{% url 'view_task_result' pk=task.id pc=competition_id %}">Результаты</a></td>
+            {% if user.judge.status == "M" or user.judge.status == "J" %}
+            <td><a href="{% url 'judge_task' pk=task.id pc=competition_id %}">Судить</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{%  endblock %}

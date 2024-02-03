@@ -16,7 +16,7 @@
 
 * Стратегии расширения [Django User Model](https://habr.com/ru/articles/313764/)
 
-
+* Слияние [веток](https://git.github.io/git-scm.com/book/ru/v2/Ветвление-в-Git-Перебазирование/)
 
 #### развернуть на vds с debian/ubuntu:
 1. apt install git
