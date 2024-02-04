@@ -38,3 +38,16 @@ class CompetitionTask(models.Model):
     def __str__(self):
         return self.name
 
+class TableTask(models.Model):
+    """Таблица для судейства этапов соревнований"""
+    class Meta:
+        db_table = 'table_tasks'
+        verbose_name = _('Таблица этапа')
+        verbose_name_plural = _('Таблицы этапов')
+
+    competition_task = models.OneToOneField(CompetitionTask, on_delete=models.CASCADE, primary_key=True)
+    participants = models.ForeignKey('Participants', on_delete=models.CASCADE)
+    time = models.TimeField()
+    points = models.IntegerField()
+
+
