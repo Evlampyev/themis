@@ -1,3 +1,5 @@
+from warnings import filters
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -8,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from logging import getLogger
 from .forms import JudgeEditForm, UserAddForm, JudgeAddForm
-from .models import Judge
+from .models import Judge, Participant
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
@@ -21,6 +23,7 @@ logger = getLogger(__name__)
 
 JUDGE_TABLE_TITLE = ["№ п\п", 'Имя', "Отчество", "Фамилия", "Должность", "Заслуги",
                      "Место работы", "Статус", 'Соревнование', "Редактор"]
+PARTICIPANT_TABLE_TITLE = [ "Фамилия", "Имя", 'Конкурс', 'Команда']
 
 
 @login_required
@@ -37,7 +40,8 @@ def edit_judges(request):
                                       user.judge.competitions.all().values_list('name',
                                                                                 flat=True)]
     context = {
-        'title': JUDGE_TABLE_TITLE,
+        'title': "Список судей",
+        'table_title': JUDGE_TABLE_TITLE,
         'users': users,
         'competitions': competitions_dict,
         # 'user_status': user_status
@@ -45,6 +49,7 @@ def edit_judges(request):
     return render(request, 'app_for_judges/view_judges.html', context=context)
 
 
+@login_required
 def delete_judge(request, pk):
     """Удаление судьи"""
     user = User.objects.get(id=pk)
@@ -58,7 +63,7 @@ def delete_judge(request, pk):
 
 
 @login_required
-@transaction.atomic
+@transaction.atomic # для транзакции - несколько операций базы данных в одну логическую единицу работы
 def add_judge(request):
     """Добавление судьи"""
     title = "Добавление судьи"
@@ -102,6 +107,7 @@ def add_judge(request):
 #     success_url = reverse_lazy('all_judges')
 
 
+@login_required
 def edit_judge(request, pk):
     """Редактирование судьи"""
     user = get_object_or_404(User, id=pk)
@@ -140,4 +146,7 @@ def edit_judge(request, pk):
 
 def participants_list(request):
     context = {'title': 'Список участников'}
+    participants=Participant.objects.all().order_by('last_name')
+    context['participants'] = participants
+    context['table_title'] = PARTICIPANT_TABLE_TITLE
     return render(request, 'app_for_judges/view_participants.html', context)

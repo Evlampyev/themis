@@ -61,7 +61,7 @@ class ParticipantsAdmin(admin.ModelAdmin):
 
 
 class ParticipantTeamsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'organization','competition']
+    list_display = ['name', 'organization', 'competition']
     ordering = ['organization', 'name']
     list_filter = ['organization', 'competition']
     search_fields = ['name']

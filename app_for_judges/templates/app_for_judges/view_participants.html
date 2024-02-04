@@ -6,5 +6,32 @@
 {% endblock %}
 
 {% block content %}
-<h3 class="center">{{ title }}</h3>
+<div class="row">
+    <div class="table-caption">{{ title }}</div>
+    <table id="table">
+        <thead>
+        <tr>
+            {% for value in table_title %}
+            {% if value != 'Редактор' %}
+            <th>{{ value }}</th>
+            {% else %}
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+            <th>{{ value }}</th>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for participant in participants %}
+        <tr>
+            <td>{{ participant.last_name }}</td>
+            <td>{{ participant.name }}</td>
+            <td>{{ participant.competition }}</td>
+            <td>{{ participant.team }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

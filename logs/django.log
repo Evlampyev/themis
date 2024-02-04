@@ -1,2 +1,1 @@
-[INFO    :             django.server] - 2024-02-03 23:05:46,860 : log_message @ 0212: "GET /admin/app_for_judges/participant/ HTTP/1.1" 200 32178
-[INFO    :             django.server] - 2024-02-03 23:05:46,931 : log_message @ 0212: "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO    :             django.server] - 2024-02-04 21:15:21,341 : log_message @ 0212: "GET /judges/participants_list/ HTTP/1.1" 200 13926

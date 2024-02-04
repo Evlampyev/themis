@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Редактирование судей
+{{ title }}
 {% endblock %}
 
 {% block content %}
@@ -10,11 +10,11 @@
     {% if not users %}
     <h4 class="center">Список судей пока пуст</h4>
     {% else %}
-    <div class="table-caption">Список судей</div>
+    <div class="table-caption">{{ title }}</div>
     <table id="table">
         <thead>
         <tr>
-            {% for value in title %}
+            {% for value in table_title %}
             {% if value != 'Редактор' %}
             <th>{{ value }}</th>
             {% else %}
