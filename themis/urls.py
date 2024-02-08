@@ -25,4 +25,5 @@ urlpatterns = [
     path('competitions/', include('app_for_competitions.urls')),
     path('users/', include('users.urls', namespace="users")),
 
+
 ]

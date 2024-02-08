@@ -1,0 +1,331 @@
+[ERROR   :            django.request] - 2024-02-08 23:10:46,807 : log_response @ 0241: Internal Server Error: /competitions/judge_task/1/1/
+Traceback (most recent call last):
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\themis\app_for_competitions\views.py", line 153, in judge_task
+    return render(request, 'app_for_competitions/judge_task.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\defaulttags.py", line 478, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\urls\resolvers.py", line 848, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'add_participant' with keyword arguments '{'pc': '', 'pk': ''}' not found. 1 pattern(s) tried: ['judges/add_participant\\Z']
+[ERROR   :             django.server] - 2024-02-08 23:10:46,906 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 500 210896
+[INFO    :            app_main.views] - 2024-02-08 23:10:50,338 : home @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-08 23:10:50,368 : log_message @ 0212: "GET / HTTP/1.1" 200 12334
+[INFO    :             django.server] - 2024-02-08 23:10:50,493 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :            app_main.views] - 2024-02-08 23:10:50,880 : home @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-08 23:10:50,906 : log_message @ 0212: "GET / HTTP/1.1" 200 12334
+[INFO    :             django.server] - 2024-02-08 23:10:52,539 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:10:53,519 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13170
+[ERROR   :            django.request] - 2024-02-08 23:10:55,101 : log_response @ 0241: Internal Server Error: /competitions/judge_task/1/1/
+Traceback (most recent call last):
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\themis\app_for_competitions\views.py", line 153, in judge_task
+    return render(request, 'app_for_competitions/judge_task.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\defaulttags.py", line 478, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\urls\resolvers.py", line 848, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'add_participant' with keyword arguments '{'pc': '', 'pk': ''}' not found. 1 pattern(s) tried: ['judges/add_participant\\Z']
+[ERROR   :             django.server] - 2024-02-08 23:10:55,131 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 500 210942
+[INFO    :             django.server] - 2024-02-08 23:11:27,121 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16633
+[ERROR   :            django.request] - 2024-02-08 23:11:45,622 : log_response @ 0241: Internal Server Error: /judges/add_participant
+Traceback (most recent call last):
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view app_for_judges.views.add_participant didn't return an HttpResponse object. It returned None instead.
+[ERROR   :             django.server] - 2024-02-08 23:11:45,640 : log_message @ 0212: "GET /judges/add_participant HTTP/1.1" 500 81013
+[INFO    :             django.server] - 2024-02-08 23:14:06,451 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16785
+[INFO    :             django.server] - 2024-02-08 23:14:06,477 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:14:20,332 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16803
+[INFO    :             django.server] - 2024-02-08 23:15:03,544 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16839
+[INFO    :             django.server] - 2024-02-08 23:16:12,057 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16919
+[INFO    :             django.server] - 2024-02-08 23:16:28,302 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16839
+[INFO    :             django.server] - 2024-02-08 23:16:28,328 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:16:51,295 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16857
+[INFO    :             django.server] - 2024-02-08 23:20:14,958 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:20:14,988 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:20:19,038 : log_message @ 0212: "GET /competitions/edit/1/ HTTP/1.1" 200 13095
+[INFO    :             django.server] - 2024-02-08 23:20:43,338 : log_message @ 0212: "GET /competitions/edit/1/ HTTP/1.1" 200 13095
+[INFO    :             django.server] - 2024-02-08 23:20:46,374 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:20:47,641 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13170
+[INFO    :             django.server] - 2024-02-08 23:20:48,913 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16857
+[INFO    :             django.server] - 2024-02-08 23:20:52,807 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16857
+[INFO    :             django.server] - 2024-02-08 23:20:52,835 : log_message @ 0212: "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 13404
+[INFO    :             django.server] - 2024-02-08 23:20:52,835 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 200 9460
+[INFO    :             django.server] - 2024-02-08 23:20:52,835 : log_message @ 0212: "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 12621
+[INFO    :             django.server] - 2024-02-08 23:20:52,873 : log_message @ 0212: "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
+[INFO    :             django.server] - 2024-02-08 23:20:52,878 : log_message @ 0212: "GET /static/image/femidalittle.png HTTP/1.1" 200 788066
+[INFO    :             django.server] - 2024-02-08 23:20:52,879 : log_message @ 0212: "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 4527
+[INFO    :             django.server] - 2024-02-08 23:20:52,899 : log_message @ 0212: "GET /static/image/favicon.ico HTTP/1.1" 200 251966
+[ERROR   :            django.request] - 2024-02-08 23:21:17,988 : log_response @ 0241: Internal Server Error: /competitions/judge_task/1/1/
+Traceback (most recent call last):
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view app_for_competitions.views.judge_task didn't return an HttpResponse object. It returned None instead.
+[ERROR   :             django.server] - 2024-02-08 23:21:18,009 : log_message @ 0212: "POST /competitions/judge_task/1/1/ HTTP/1.1" 500 82029
+[WARNING :            django.request] - 2024-02-08 23:21:18,135 : log_response @ 0241: Not Found: /favicon.ico
+[WARNING :             django.server] - 2024-02-08 23:21:18,135 : log_message @ 0212: "GET /favicon.ico HTTP/1.1" 404 13397
+[INFO    :            app_main.views] - 2024-02-08 23:21:46,318 : home @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-08 23:21:46,343 : log_message @ 0212: "GET / HTTP/1.1" 200 12334
+[INFO    :             django.server] - 2024-02-08 23:21:46,451 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :            app_main.views] - 2024-02-08 23:21:46,802 : home @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-08 23:21:46,827 : log_message @ 0212: "GET / HTTP/1.1" 200 12334
+[INFO    :             django.server] - 2024-02-08 23:21:48,472 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:21:49,417 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13170
+[INFO    :             django.server] - 2024-02-08 23:21:51,248 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 16857
+[INFO    :             django.server] - 2024-02-08 23:22:13,027 : log_message @ 0212: "POST /competitions/judge_task/1/1/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-08 23:22:13,091 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 17375
+[INFO    :             django.server] - 2024-02-08 23:22:13,117 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:23:00,863 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 17149
+[INFO    :             django.server] - 2024-02-08 23:23:00,893 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 200 9460
+[INFO    :             django.server] - 2024-02-08 23:23:10,348 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 17149
+[INFO    :             django.server] - 2024-02-08 23:23:10,373 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 200 9459
+[INFO    :             django.server] - 2024-02-08 23:23:14,371 : log_message @ 0212: "GET /judges/all/ HTTP/1.1" 200 21502
+[INFO    :             django.server] - 2024-02-08 23:23:14,395 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:23:18,505 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:23:18,530 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:23:21,207 : log_message @ 0212: "GET /judges/participants_list/ HTTP/1.1" 200 14299
+[INFO    :             django.server] - 2024-02-08 23:23:21,232 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:23:25,352 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:23:25,379 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:23:26,631 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13170
+[INFO    :             django.server] - 2024-02-08 23:23:27,743 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 17149
+[INFO    :             django.server] - 2024-02-08 23:23:27,765 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:24:12,776 : log_message @ 0212: "GET /competitions/competition_result/ HTTP/1.1" 200 12019
+[INFO    :             django.server] - 2024-02-08 23:24:12,800 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:24:53,068 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:24:53,096 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:24:53,972 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13170
+[INFO    :             django.server] - 2024-02-08 23:24:55,250 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 17149
+[INFO    :            app_main.views] - 2024-02-08 23:24:56,806 : home @ 0012: Главная страница
+[INFO    :             django.server] - 2024-02-08 23:24:56,831 : log_message @ 0212: "GET / HTTP/1.1" 200 12334
+[INFO    :             django.server] - 2024-02-08 23:24:58,689 : log_message @ 0212: "GET /competitions/competition_result/ HTTP/1.1" 200 12019
+[INFO    :             django.server] - 2024-02-08 23:25:16,784 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17553
+[INFO    :             django.server] - 2024-02-08 23:25:16,810 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-08 23:25:18,171 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13170
+[ERROR   :            django.request] - 2024-02-08 23:25:19,167 : log_response @ 0241: Internal Server Error: /competitions/judge_task/1/1/
+Traceback (most recent call last):
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\themis\app_for_competitions\views.py", line 153, in judge_task
+    return render(request, 'app_for_competitions/judge_task.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\test\utils.py", line 111, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\template\defaulttags.py", line 478, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\urls\resolvers.py", line 848, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'competitions_result' not found. 'competitions_result' is not a valid view function or pattern name.
+[ERROR   :             django.server] - 2024-02-08 23:25:19,198 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 500 210517
+[INFO    :             django.server] - 2024-02-08 23:25:26,557 : log_message @ 0212: "GET /competitions/judge_task/1/1/ HTTP/1.1" 200 17181
+[INFO    :             django.server] - 2024-02-08 23:25:28,032 : log_message @ 0212: "GET /competitions/competition_result/ HTTP/1.1" 200 12019
+[ERROR   :            django.request] - 2024-02-08 23:25:53,433 : log_response @ 0241: Internal Server Error: /judges/add_participant
+Traceback (most recent call last):
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\Александр\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view app_for_judges.views.add_participant didn't return an HttpResponse object. It returned None instead.
+[ERROR   :             django.server] - 2024-02-08 23:25:53,448 : log_message @ 0212: "GET /judges/add_participant HTTP/1.1" 500 81013

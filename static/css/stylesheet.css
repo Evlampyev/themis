@@ -44,7 +44,7 @@ footer {
     /*Область построения таблицы*/
     overflow: hidden;
     max-width: 80%;
-    min-height: 60vh;
+    min-height: 2px;
     background-color: #CCFFFF;
     margin: 0 auto;
     border: 1px solid #123123;
@@ -433,6 +433,7 @@ label, input, textarea, select {
 input[type='submit'] {
     display: inline-block;
     width: auto;
+    color: black;
 }
 
 .errorlist {
@@ -463,3 +464,7 @@ input[type='submit'] {
     margin: 6px
 }
 
+.row_form {
+    list-style-type: none;
+    display : inline;
+    }

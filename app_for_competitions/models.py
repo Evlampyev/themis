@@ -1,6 +1,6 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -10,8 +10,8 @@ class Competition(models.Model):
 
     class Meta:
         db_table = 'competitions'
-        verbose_name = _('Конкурс') # наименование в админке в единственном числе
-        verbose_name_plural = _('Конкурсы') # наименование в админке во множественном числе
+        verbose_name = _('Конкурс')  # наименование в админке в единственном числе
+        verbose_name_plural = _('Конкурсы')  # наименование в админке во множественном числе
 
     name = models.CharField(_('Сокращенное название'), max_length=50, unique=True)
     fullname = models.CharField(_('Полное наименование конкурса'), max_length=200,
@@ -37,17 +37,3 @@ class CompetitionTask(models.Model):
 
     def __str__(self):
         return self.name
-
-class TableTask(models.Model):
-    """Таблица для судейства этапов соревнований"""
-    class Meta:
-        db_table = 'table_tasks'
-        verbose_name = _('Таблица этапа')
-        verbose_name_plural = _('Таблицы этапов')
-
-    competition_task = models.OneToOneField(CompetitionTask, on_delete=models.CASCADE, primary_key=True)
-    participants = models.ForeignKey('Participants', on_delete=models.CASCADE)
-    time = models.TimeField()
-    points = models.IntegerField()
-
-
