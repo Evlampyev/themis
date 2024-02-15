@@ -104,7 +104,7 @@ class ParticipantsTeam(models.Model):
 
 
 class TableTask(models.Model):
-    """Таблица для судейства этапов соревнований"""
+    """Общая таблица для судейства всех этапов соревнований"""
 
     class Meta:
         db_table = 'table_tasks'
@@ -114,6 +114,8 @@ class TableTask(models.Model):
     competition_task = models.ForeignKey(CompetitionTask, on_delete=models.CASCADE, verbose_name=_('Этап'))
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, verbose_name=_('Участник'))
     time = models.TimeField(_('Время, мм:сс'), default=time(0, 0,0))
+    points = models.IntegerField(_('Баллы'), default=0)
+
     result_place = models.IntegerField(_('Место'), default=0)
 
     def __str__(self):
