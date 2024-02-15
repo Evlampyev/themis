@@ -1,8 +1,5 @@
-from warnings import filters
-
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.db import transaction
@@ -16,6 +13,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 from django.utils.translation import gettext_lazy as _
 
+import django_tables2 as tables
+
 # Create your views here.
 
 
@@ -24,6 +23,15 @@ logger = getLogger(__name__)
 JUDGE_TABLE_TITLE = ["№ п\п", 'Имя', "Отчество", "Фамилия", "Должность", "Заслуги",
                      "Место работы", "Статус", 'Соревнование', "Редактор"]
 PARTICIPANT_TABLE_TITLE = [ "Фамилия", "Имя", 'Конкурс', 'Команда']
+
+
+# class SimpleTable(tables.Table):
+#    class Meta:
+#       model = Judge
+#
+# def edit_judges(request):
+#     table = SimpleTable(Judge.objects.all())
+#     return render(request, 'app_for_judges/view_judges.html', {'table': table, 'title': 'Список судей'} )
 
 
 @login_required
@@ -46,6 +54,9 @@ def edit_judges(request):
         'competitions': competitions_dict,
         # 'user_status': user_status
     }
+
+
+
     return render(request, 'app_for_judges/view_judges.html', context=context)
 
 
@@ -145,8 +156,13 @@ def edit_judge(request, pk):
 
 
 def participants_list(request):
+    """Список участников"""
     context = {'title': 'Список участников'}
     participants=Participant.objects.all().order_by('last_name')
     context['participants'] = participants
     context['table_title'] = PARTICIPANT_TABLE_TITLE
     return render(request, 'app_for_judges/view_participants.html', context)
+
+def add_participant(request):
+    """Добавление участника"""
+    pass

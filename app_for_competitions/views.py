@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from pathlib import Path
 from logging import getLogger
-from .forms import CompetitionForm
+from .forms import CompetitionForm, TableTaskForm
 from .models import Competition, CompetitionTask
+from app_for_judges.models import TableTask
 from django.contrib import messages
 
 # Create your views here.
@@ -13,6 +12,7 @@ logger = getLogger(__name__)
 
 COMPETITIONS_TABLE_TITLE = ['№ п/п', 'Краткое название', "Полное наименование", "Сроки",
                             "Активен", "Редактор"]
+TASK_TABLE_TITLE = ['Участник', "Время, \nмм:сс", "Место", "Редактор"]
 
 
 def edit_competitions(request):
@@ -63,6 +63,7 @@ def competition_activate(request, pk):
     messages.success(request, "Статус соревнования изменён")
     return redirect('all_competitions')
 
+
 @login_required
 def delete_competition(request, pk):
     """Удаление конкурса
@@ -73,6 +74,7 @@ def delete_competition(request, pk):
     logger.info(f"Соревнование {name} удалено")
     messages.success(request, f"Соревнование {name} удалено")
     return redirect('all_competitions')
+
 
 @login_required
 def edit_competition(request, pk):
@@ -106,12 +108,14 @@ def competition_result(request):
 
 
 def view_competition(request, pk):
+    """Просмотр всех этапов конкурса"""
     competition = get_object_or_404(Competition, id=pk)
     context = {'title': f"{competition.name}"}
     competition_tasks = CompetitionTask.objects.filter(competition=competition)
     context['competition_tasks'] = competition_tasks
     context['competition_id'] = pk
     return render(request, 'app_for_competitions/view_competition_tasks.html', context)
+
 
 @login_required
 def judge_task(request, pk, pc):
@@ -120,10 +124,33 @@ def judge_task(request, pk, pc):
             pc - id конкурса
     """
     competition = Competition.objects.filter(id=pc).first()
-    competition_tasks = CompetitionTask.objects.filter(id=pk).first()
-    context = {'title': f"{competition.name}", 'competition_task': competition_tasks.name}
+    competition_task = CompetitionTask.objects.filter(id=pk).first()
+    table_task = TableTask.objects.filter(competition_task=competition_task).order_by('participant')
+    all_times = TableTask.objects.filter(competition_task=competition_task).values_list('time', flat=True)
+    list_time = list()
+    for time in all_times:
+        list_time.append(time)
+    list_time = sorted(list_time)
+    for row in table_task:
+        row.result_place = list_time.index(row.time) + 1
+    context = {'title': f"{competition.name}",
+               'competition_task': competition_task.name,
+               'table': table_task,
+               'table_title': TASK_TABLE_TITLE}
 
-    return render(request, 'app_for_competitions/judge_task.html',context)
+    if request.method == 'POST':
+        form = TableTaskForm(request.POST)
+        if form.is_valid():
+            participant = form.cleaned_data['participant']
+            time = form.cleaned_data['time']
+            table_task = TableTask(competition_task=competition_task, participant=participant, time=time)
+            table_task.save()
+            messages.success(request, f"Результат  {participant} добавлен")
+            return redirect('judge_task', pk=pk, pc=pc)
+    else:
+        form = TableTaskForm()
+        context['form'] = form
+        return render(request, 'app_for_competitions/judge_task.html', context)
 
 
 def view_task_result(request, pk, pc):
@@ -137,3 +164,5 @@ def view_task_result(request, pk, pc):
 
     # в контексте должна быть таблица результатов этапа конкурса
     return render(request, 'app_for_competitions/view_task_result.html', context)
+
+

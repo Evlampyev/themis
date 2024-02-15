@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from datetime import time
 from django.utils.translation import gettext_lazy as _
-from app_for_competitions.models import Competition
+from app_for_competitions.models import Competition, CompetitionTask
 import sys, os
 
 sys.path.insert(0, os.path.abspath('..'))
@@ -100,3 +101,20 @@ class ParticipantsTeam(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class TableTask(models.Model):
+    """Таблица для судейства этапов соревнований"""
+
+    class Meta:
+        db_table = 'table_tasks'
+        verbose_name = _('Таблица этапа')
+        verbose_name_plural = _('Таблицы этапов')
+
+    competition_task = models.ForeignKey(CompetitionTask, on_delete=models.CASCADE, verbose_name=_('Этап'))
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE, verbose_name=_('Участник'))
+    time = models.TimeField(_('Время, мм:сс'), default=time(0, 0,0))
+    result_place = models.IntegerField(_('Место'), default=0)
+
+    def __str__(self):
+        return f"{self.competition_task} {self.participant} {self.time} {self.result_place}"

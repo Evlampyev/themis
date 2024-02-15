@@ -1,6 +1,7 @@
 from django import forms
 import datetime
 from .models import Competition
+from app_for_judges.models import TableTask
 from django.utils.translation import gettext_lazy as _
 
 
@@ -24,3 +25,10 @@ class CompetitionForm(forms.ModelForm):
         if datetime.date.today() > my_date:
             raise forms.ValidationError(u'Указана не верная дата! "%s"' % my_date)
         return my_date
+
+class  TableTaskForm(forms.ModelForm):
+    class Meta:
+        model = TableTask
+        fields = ['participant', 'time']
+
+    time = forms.TimeField(widget=forms.TimeInput(format='%H:%M:%S'))
