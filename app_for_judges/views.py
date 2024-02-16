@@ -156,6 +156,7 @@ def edit_judge(request, pk):
 
 
 def participants_list(request):
+    """Список участников"""
     context = {'title': 'Список участников'}
     participants=Participant.objects.all().order_by('last_name')
     context['participants'] = participants
