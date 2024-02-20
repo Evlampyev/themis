@@ -1,8 +1,14 @@
 from django.core.management.base import BaseCommand
-from random import randint
+from random import randint, choice
 from datetime import date
 from app_for_judges.models import Participant
 
+LAST_NAME = ['Смирнов', 'Иванов', 'Кузнецов', 'Соколов', 'Попов', 'Лебедев', 'Козлов', 'Новиков', 'Морозов', 'Петров',
+             'Волков', 'Соловьёв', 'Васильев', 'Зайцев', 'Павлов', 'Семёнов', 'Голубев', 'Виноградов', 'Богданов',
+             'Воробьёв']
+
+NAME = ['Александр', 'Алексей', 'Андрей', 'Антон', 'Артём', 'Вадим', 'Валентин', 'Виктор', 'Владимир', 'Вячеслав',
+        'Евгений', 'Егор', 'Евгений', 'Евгений', 'Евгений', 'Егор', 'Евгений', 'Евгений', 'Евгений', 'Егор']
 
 
 class Command(BaseCommand):
@@ -13,9 +19,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         count = kwargs.get('count')
-        for i in range (1, count+1):
-            name = f'Имя_{i}'
-            last_name = f'Фамилия_{i}'
+        for i in range(1, count + 1):
+            name = choice(NAME)
+            last_name = choice(LAST_NAME)
             organization = f'Организация_{i}'
             birthday = date(randint(2007, 2011), randint(1, 12), randint(1, 28))
             participant = Participant(name=name, last_name=last_name, organization=organization, birthday=birthday)

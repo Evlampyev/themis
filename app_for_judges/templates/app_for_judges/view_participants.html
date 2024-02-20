@@ -33,5 +33,10 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="container">
+        {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+        <a href="{% url 'add_participant' %}" class="btn a_btn">Добавить</a>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

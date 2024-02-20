@@ -1,5 +1,5 @@
 .wrapper {
-    height: 100vh;
+    height: 90vh;
     flex-direction: column;
 }
 
@@ -12,6 +12,7 @@ main {
 
 body {
     margin: 0;
+    min-width: 1000px;
 }
 
 header {
