@@ -12,12 +12,9 @@
     <table>
         <tr>
             <td>
-
                 <div class="container">
                     <a class="btn a_btn" href='{% url "add_participant" %}'>Добавить участника</a>
-<!--                    <input type="hidden" name="next" value="{{ request.path }}">-->
                 </div>
-
             </td>
             <td>
                 <form method="post" novalidate>
@@ -38,38 +35,9 @@
     </table>
 </div>
 <hr>
-<div class="row">
-
-
-    <div class="table-caption">Список участников</div>
-    <table id="table">
-        <thead>
-        <tr>
-            {% for value in table_title %}
-            {% if value != 'Редактор' %}
-            <th>{{ value }}</th>
-            {% else %}
-            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
-            <th>{{ value }}</th>
-            {% endif %}
-            {% endif %}
-            {% endfor %}
-        </tr>
-        </thead>
-        <tbody>
-        {% for row in table %}
-        <tr>
-            <td>{{ row.participant }}</td>
-            <td>{{ row.time }}</td>
-            <td>{{ row.result_place }}</td>
-            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
-            <td class="actions"><a href="#">Редактировать</a>
-                <p></p><a href='#'>Удалить</a></td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div>
+    {% include 'app_for_competitions/comp_task_result.html' %}
 </div>
+
 
 {% endblock %}

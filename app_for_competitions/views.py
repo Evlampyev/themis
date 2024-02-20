@@ -104,6 +104,10 @@ def edit_competition(request, pk):
 def competition_result(request):
     """Результаты конкурса на Итоги"""
     context = {'title': "Результаты конкурса"}
+
+
+
+
     return render(request, 'app_for_competitions/competition_result.html', context)
 
 
@@ -123,16 +127,15 @@ def judge_task(request, pk, pc):
     params: pk - id этапа
             pc - id конкурса
     """
-    competition = Competition.objects.filter(id=pc).first()
-    competition_task = CompetitionTask.objects.filter(id=pk).first()
-    table_task = TableTask.objects.filter(competition_task=competition_task).order_by('participant')
-    all_times = TableTask.objects.filter(competition_task=competition_task).values_list('time', flat=True)
-    list_time = list()
-    for time in all_times:
-        list_time.append(time)
-    list_time = sorted(list_time)
+    competition = Competition.objects.filter(id=pc).first()  # конкурс
+    competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
+    table_task = TableTask.objects.filter(competition_task=competition_task).order_by('time')  # таблица результатов
+    i = 1
     for row in table_task:
-        row.result_place = list_time.index(row.time) + 1
+        row.result_place = i
+        row.save()
+        i += 1
+
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'table': table_task,
@@ -158,11 +161,13 @@ def view_task_result(request, pk, pc):
     params: pk - id этапа
             pc - id конкурса
     """
-    competition = Competition.objects.filter(id=pc).first()
-    competition_tasks = CompetitionTask.objects.filter(id=pk).first()
-    context = {'title': f"{competition.name}", 'competition_task': competition_tasks.name}
+    competition = Competition.objects.filter(id=pc).first()  # конкурс
+    competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
+    table_task = TableTask.objects.filter(competition_task=competition_task).order_by('participant')  # таблица результатов
 
-    # в контексте должна быть таблица результатов этапа конкурса
+    context = {'title': f"{competition.name}",
+               'competition_task': competition_task.name,
+               'table': table_task,
+               'table_title': TASK_TABLE_TITLE}
+
     return render(request, 'app_for_competitions/view_task_result.html', context)
-
-

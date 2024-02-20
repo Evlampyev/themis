@@ -82,7 +82,7 @@ class Participant(models.Model):
                                     verbose_name=_('Соревнования'))
 
     def __str__(self):
-        return f"{self.name} {self.last_name}"
+        return f"{self.last_name} {self.name}"
 
 
 class ParticipantsTeam(models.Model):

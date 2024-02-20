@@ -8,4 +8,9 @@
 {% block content %}
 <h3 class="center">{{ title }}</h3>
 <h4 class="center">Результаты этапа "{{ competition_task }}"</h4>
+
+<div>
+    {% include 'app_for_competitions/comp_task_result.html' %}
+</div>
+
 {%  endblock %}
