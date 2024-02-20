@@ -6,5 +6,26 @@
 {% endblock %}
 
 {% block content %}
-<h3 class="center">{{ title }}</h3>
+<div class="row">
+    <div class="table-caption">{{ title }} {{ competition }}</div>
+    <table id="table">
+        <thead>
+        <tr>
+            {% for value in table_title %}
+            <th>{{ value }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in competition_results %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ result.participant }}</td>
+            <td>{{ result.final_place }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {%  endblock %}

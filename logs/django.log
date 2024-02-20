@@ -1,0 +1,4 @@
+[INFO    :             django.server] - 2024-02-21 00:27:18,023 : log_message @ 0212: "GET /competitions/end_judging/1/ HTTP/1.1" 302 0
+[INFO    :             django.server] - 2024-02-21 00:27:18,133 : log_message @ 0212: "GET /competitions/competition_result/ HTTP/1.1" 200 12352
+[INFO    :             django.server] - 2024-02-21 00:27:20,718 : log_message @ 0212: "GET /competitions/all/ HTTP/1.1" 200 17113
+[INFO    :             django.server] - 2024-02-21 00:27:21,980 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13145
