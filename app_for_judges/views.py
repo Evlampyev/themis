@@ -38,7 +38,6 @@ def edit_judges(request):
     # users = Judge.objects.all()
     users = User.objects.filter(is_active=True).order_by('last_name')
     competitions_dict = {}
-
     for user in users:
         competitions_dict[user.pk] = [comp for comp in
                                       user.judge.competitions.all().values_list('name',
@@ -50,7 +49,6 @@ def edit_judges(request):
         'competitions': competitions_dict,
         # 'user_status': user_status
     }
-
     return render(request, 'app_for_judges/view_judges.html', context=context)
 
 
@@ -58,8 +56,6 @@ def edit_judges(request):
 def delete_judge(request, pk):
     """Удаление судьи"""
     user = User.objects.get(id=pk)
-    # judge.delete()
-    # logger.info(f'{user} deleted')
     logger.info(f'{user.judge} deleted')
     user.is_active = False
     user.save()
@@ -152,7 +148,7 @@ def edit_judge(request, pk):
 def participants_list(request):
     """Список участников активных соревнований"""
     context = {'title': 'Список участников'}
-    participants = Participant.objects.filter(competition__active=True).order_by('competition','last_name')
+    participants = Participant.objects.filter(competition__active=True).order_by('competition', 'last_name')
     context['participants'] = participants
     context['table_title'] = PARTICIPANT_TABLE_TITLE
     return render(request, 'app_for_judges/view_participants.html', context)
