@@ -1,16 +1,12 @@
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from logging import getLogger
-from .forms import JudgeEditForm, UserAddForm, JudgeAddForm
+
+from .forms import JudgeEditForm, UserAddForm, JudgeAddForm, ParticipantAddForm
 from .models import Judge, Participant
 from django.contrib import messages
-from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
 from django.utils.translation import gettext_lazy as _
 
 import django_tables2 as tables
@@ -22,7 +18,7 @@ logger = getLogger(__name__)
 
 JUDGE_TABLE_TITLE = ["№ п\п", 'Имя', "Отчество", "Фамилия", "Должность", "Заслуги",
                      "Место работы", "Статус", 'Соревнование', "Редактор"]
-PARTICIPANT_TABLE_TITLE = [ "Фамилия", "Имя", 'Конкурс', 'Команда']
+PARTICIPANT_TABLE_TITLE = ["Фамилия", "Имя", 'Конкурс', 'Команда']
 
 
 # class SimpleTable(tables.Table):
@@ -55,8 +51,6 @@ def edit_judges(request):
         # 'user_status': user_status
     }
 
-
-
     return render(request, 'app_for_judges/view_judges.html', context=context)
 
 
@@ -74,7 +68,7 @@ def delete_judge(request, pk):
 
 
 @login_required
-@transaction.atomic # для транзакции - несколько операций базы данных в одну логическую единицу работы
+@transaction.atomic  # для транзакции - несколько операций базы данных в одну логическую единицу работы
 def add_judge(request):
     """Добавление судьи"""
     title = "Добавление судьи"
@@ -156,13 +150,26 @@ def edit_judge(request, pk):
 
 
 def participants_list(request):
-    """Список участников"""
+    """Список участников активных соревнований"""
     context = {'title': 'Список участников'}
-    participants=Participant.objects.all().order_by('last_name')
+    participants = Participant.objects.filter(competition__active=True).order_by('competition','last_name')
     context['participants'] = participants
     context['table_title'] = PARTICIPANT_TABLE_TITLE
     return render(request, 'app_for_judges/view_participants.html', context)
 
+
 def add_participant(request):
     """Добавление участника"""
-    pass
+    title = 'Добавление участника'
+    if request.method == 'POST':
+        participant_form = ParticipantAddForm(request.POST)
+        if participant_form.is_valid():
+            participant = participant_form.save(commit=False)
+            participant.save()
+            logger.info(f'Participant {participant} added')
+            messages.success(request, _('Участник добавлен'))
+            return redirect('participants_list')
+    else:
+        participant_form = ParticipantAddForm()
+    return render(request, 'app_for_judges/add_participant.html',
+                  {'participant_form': participant_form, 'title': title})

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 from app_for_competitions.models import Competition
-from .models import Judge
+from .models import Judge, Participant, ParticipantsTeam
 from django.utils.translation import gettext_lazy as _
 
 
@@ -46,3 +46,18 @@ class JudgeAddForm(forms.ModelForm):
     class Meta:
         model = Judge
         fields = ('patronymic', 'post', 'regalia', 'organization', 'status', 'competitions')
+
+
+class ParticipantAddForm(forms.ModelForm):
+    class Meta:
+        model = Participant
+        fields = ['name', 'last_name', 'organization', 'birthday', 'competition', 'team']
+
+    name = forms.CharField(max_length=25, label=_("Имя"))
+    last_name = forms.CharField(max_length=25, label=_("Фамилия"))
+    organization = forms.CharField(max_length=100, label=_("Образовательное учреждение"))
+    birthday = forms.DateField(label=_("Дата рождения"))
+    competition = forms.ModelChoiceField(
+        queryset=Competition.objects.all().order_by('name'), blank=True, label=_("Конкурс"))
+    team = forms.ModelChoiceField(
+        queryset=ParticipantsTeam.objects.all().order_by('name'), blank=True, required=False, label=_("Команда"))
