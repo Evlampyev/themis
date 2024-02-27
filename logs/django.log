@@ -1,2 +1,0 @@
-[INFO    :             django.server] - 2024-02-27 20:50:01,285 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13023
-[INFO    :             django.server] - 2024-02-27 20:50:01,313 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
