@@ -17,7 +17,7 @@
     <header>
         <ul>
             <li>
-                <a class="a_menu_logo " href="{% url 'home' %}">
+                <a class="a_menu_logo" href="{% url 'home' %}">
                     <image class="logo" src="{% static 'image/femidalittle.png' %}">
                 </a>
             </li>
@@ -26,7 +26,7 @@
             <li><a class="a_menu" href="{% url 'all_judges' %}">Судьи</a></li>
             <li><a class="a_menu" href="#">Участники</a>
                 <ul>
-                    <li><a class="a_menu" href="{% url 'participants_list' %}">Список</a></li>
+                    <li><a class="a_menu" href="{% url 'participants_list' filter='all' %}">Список</a></li>
                 </ul>
             </li>
             <li><a class="a_menu" href="{% url 'contacts' %}">Контакты</a></li>
@@ -47,8 +47,6 @@
     <main>
         {% block content %}
         <h2>Это базовый шаблон</h2>
-
-
         {% endblock %}
     </main>
 

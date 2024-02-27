@@ -8,4 +8,36 @@
 {% block content %}
 <h3 class="center">{{ title }}</h3>
 <h4 class="center">Судейство этапа "{{ competition_task }}"</h4>
-{%  endblock %}
+<div class="row">
+    <table>
+        <tr>
+            <td>
+                <div class="container">
+                    <a class="btn a_btn" href='{% url "add_participant" %}'>Добавить участника</a>
+                </div>
+            </td>
+            <td>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {{ field.errors }}
+                    <li class="row_form"> {{ field.label_tag }} {{ field }}</li>
+                    {% endfor %}
+                    <input class="btn a_btn" type="submit" value="Сохранить"/>
+                </form>
+            </td>
+            <td>
+                <div class="container">
+                    <a class="btn a_btn" href="{% url 'end_judging' pk=pk %}">Закончить судейство</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<hr>
+<div>
+    {% include 'app_for_competitions/comp_task_result.html' %}
+</div>
+
+
+{% endblock %}

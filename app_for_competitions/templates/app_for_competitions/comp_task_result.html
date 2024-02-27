@@ -1,0 +1,37 @@
+<div class="row">
+
+    {% if  table is not none %}
+    <div class="table-caption">Список участников</div>
+    <table id="table">
+        <thead>
+        <tr>
+            {% for value in table_title %}
+            {% if value != 'Редактор' %}
+            <th>{{ value }}</th>
+            {% else %}
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+            <th>{{ value }}</th>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in table %}
+        <tr>
+            <td>{{ row.participant }}</td>
+            <td>{{ row.time }}</td>
+            <td>{{ row.result_place }}</td>
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+            <td class="actions"><a href="#">Редактировать</a>
+                <p></p><a href='{% url "delete_participant_from_table_task" pk=row.id %}'>Удалить</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div class="table-caption">Судейство пока не окончено</div>
+    {% endif %}
+</div>

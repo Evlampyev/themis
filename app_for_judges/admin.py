@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from .models import Judge, Participant, ParticipantsTeam
+from .models import Judge, Participant, ParticipantsTeam, TableTask, CompetitionResult
 
 
 @admin.action(description='Сбросить статус до наблюдателя')
@@ -68,7 +68,21 @@ class ParticipantTeamsAdmin(admin.ModelAdmin):
     search_help_text = "Поиск по полю Название команды "
 
 
+class TableTaskAdmine(admin.ModelAdmin):
+    model = TableTask
+    list_display = ['competition_task', 'participant', 'time', 'result_place']
+    ordering = ['competition_task', 'participant']
+    list_filter = ['competition_task', 'participant']
+
+
+class CompetitionResultAdmin(admin.ModelAdmin):
+    model = CompetitionResult
+    list_display = ['participant', 'final_place']
+
+
 # admin.site.register(Judge, JudgeAdmin)
 admin.site.register(Judge, JudgeInline)
 admin.site.register(Participant, ParticipantsAdmin)
 admin.site.register(ParticipantsTeam, ParticipantTeamsAdmin)
+admin.site.register(TableTask, TableTaskAdmine)
+admin.site.register(CompetitionResult, CompetitionResultAdmin)

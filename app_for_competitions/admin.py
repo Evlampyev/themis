@@ -13,7 +13,7 @@ class CompetitionAdmin(admin.ModelAdmin):
 
 
 class CompetitionTaskAdmin(admin.ModelAdmin):
-    list_display = ['name', 'competition']
+    list_display = ['name', 'competition', 'judging']
     ordering = ['name', 'competition']
     search_fields = ['name']
     search_help_text = "Поиск по полю Название этапа'"

@@ -52,7 +52,7 @@
             {% if user.judge.status == 'M' or user.judge.status == 'J' %}
             <td class="actions"><a href="{% url 'edit_judge' pk=j_user.id %}">Изменить</a>
                 <br>
-                 <a href="{% url 'delete_judge' pk=j_user.id %}">Удалить</a></td>
+                <a href="{% url 'delete_judge' pk=j_user.id %}">Удалить</a></td>
             {% endif %}
             <!--            <td class="checkbox"><input type="checkbox"/></td>-->
         </tr>
@@ -66,6 +66,6 @@
         <a href="{% url 'add_judge' %}" class="btn a_btn">Добавить</a>
         {% endif %}
     </div>
-</div>
 
+</div>
 {% endblock %}

@@ -8,7 +8,8 @@ logger = getLogger(__name__)
 
 
 def home(request):
-    context = {'info': ['Всем привет!', 'И добро пожаловать!']}
+    context = {'info': ['Всем привет!', 'И добро пожаловать!',
+                        'Это локальный сайт,', 'для организации судейства в конкурсах', 'Оренбургского президентского кадетского училища']}
     logger.info('Главная страница')
     return render(request, 'app_main/index.html', context=context)
 

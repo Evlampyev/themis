@@ -1,20 +1,15 @@
-from warnings import filters
-
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from logging import getLogger
-from .forms import JudgeEditForm, UserAddForm, JudgeAddForm
+
+from .forms import JudgeEditForm, UserAddForm, JudgeAddForm, ParticipantAddForm
 from .models import Judge, Participant
 from django.contrib import messages
-from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
 from django.utils.translation import gettext_lazy as _
+
+import django_tables2 as tables
 
 # Create your views here.
 
@@ -23,7 +18,16 @@ logger = getLogger(__name__)
 
 JUDGE_TABLE_TITLE = ["№ п\п", 'Имя', "Отчество", "Фамилия", "Должность", "Заслуги",
                      "Место работы", "Статус", 'Соревнование', "Редактор"]
-PARTICIPANT_TABLE_TITLE = [ "Фамилия", "Имя", 'Конкурс', 'Команда']
+PARTICIPANT_TABLE_TITLE = ["Фамилия", "Имя", 'Конкурс', 'Команда']
+
+
+# class SimpleTable(tables.Table):
+#    class Meta:
+#       model = Judge
+#
+# def edit_judges(request):
+#     table = SimpleTable(Judge.objects.all())
+#     return render(request, 'app_for_judges/view_judges.html', {'table': table, 'title': 'Список судей'} )
 
 
 @login_required
@@ -34,7 +38,6 @@ def edit_judges(request):
     # users = Judge.objects.all()
     users = User.objects.filter(is_active=True).order_by('last_name')
     competitions_dict = {}
-
     for user in users:
         competitions_dict[user.pk] = [comp for comp in
                                       user.judge.competitions.all().values_list('name',
@@ -53,8 +56,6 @@ def edit_judges(request):
 def delete_judge(request, pk):
     """Удаление судьи"""
     user = User.objects.get(id=pk)
-    # judge.delete()
-    # logger.info(f'{user} deleted')
     logger.info(f'{user.judge} deleted')
     user.is_active = False
     user.save()
@@ -63,7 +64,7 @@ def delete_judge(request, pk):
 
 
 @login_required
-@transaction.atomic # для транзакции - несколько операций базы данных в одну логическую единицу работы
+@transaction.atomic  # для транзакции - несколько операций базы данных в одну логическую единицу работы
 def add_judge(request):
     """Добавление судьи"""
     title = "Добавление судьи"
@@ -144,9 +145,33 @@ def edit_judge(request, pk):
             return render(request, 'app_for_judges/edit_judge.html', {'form': form})
 
 
-def participants_list(request):
+def participants_list(request, filter):
+    """Список участников активных/всех соревнований"""
     context = {'title': 'Список участников'}
-    participants=Participant.objects.all().order_by('last_name')
+    if filter == 'active':
+        participants = Participant.objects.filter(competition__active=True).order_by('competition', 'last_name')
+        messages.success(request, _('Показаны участники активных соревнований'))
+    elif filter == 'all':
+        participants = Participant.objects.all().order_by('competition', 'last_name')
+        messages.success(request, _('Показаны все участники'))
     context['participants'] = participants
     context['table_title'] = PARTICIPANT_TABLE_TITLE
     return render(request, 'app_for_judges/view_participants.html', context)
+
+
+def add_participant(request):
+    """Добавление участника"""
+    title = 'Добавление участника'
+    if request.method == 'POST':
+        participant_form = ParticipantAddForm(request.POST)
+        if participant_form.is_valid():
+            participant = participant_form.save(commit=False)
+            participant.save()
+            logger.info(f'Participant {participant} added')
+            messages.success(request, _('Участник добавлен'))
+            return redirect('participants_list/all')
+    else:
+        participant_form = ParticipantAddForm()
+    return render(request, 'app_for_judges/add_participant.html',
+                  {'participant_form': participant_form, 'title': title})
+

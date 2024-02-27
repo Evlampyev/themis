@@ -1,5 +1,5 @@
 .wrapper {
-    height: 100vh;
+    height: 90vh;
     flex-direction: column;
 }
 
@@ -10,9 +10,6 @@ main {
     margin: 3px;
 }
 
-body {
-    margin: 0;
-}
 
 header {
     background-color: #2ecc71;
@@ -22,7 +19,8 @@ header {
 footer {
     background-color: #2c3e50;
     color: white;
-    height: 40px;
+    height: 50px;
+    padding: 5px;
 }
 
 * {
@@ -36,7 +34,7 @@ footer {
     width: 33.333%;
     max-height: 100%;
     min-height: 50vh;
-    border: 2px solid #123123;
+    /*border: 2px solid #123123;*/
     float: left;
 }
 
@@ -44,7 +42,7 @@ footer {
     /*Область построения таблицы*/
     overflow: hidden;
     max-width: 80%;
-    min-height: 60vh;
+    min-height: 2px;
     background-color: #CCFFFF;
     margin: 0 auto;
     border: 1px solid #123123;
@@ -109,7 +107,7 @@ a:hover {
     margin: 3px auto 2px;
     height: 42px;
     /*line-height: 50px;*/
- }
+}
 
 .enter {
     float: right;
@@ -154,12 +152,15 @@ body {
     font: normal 16px Tahoma, Geneva, Helvetica, sans-serif;
     margin: 0 auto;
     padding: 0;
+    min-width: 1000px;
 }
 
 @media only all and (min-width: 760px) {
     body {
-        padding: 20px;
-        padding: 2rem;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-right: 2rem;
+        padding-left: 2rem;
     }
 }
 
@@ -391,6 +392,13 @@ span.no {
     border: 1px solid rgb(146, 148, 248);
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-col-3 {
+    width: 33.333%;
+    border: 2px solid #123123;
 }
 
 .btn:hover {
@@ -433,6 +441,7 @@ label, input, textarea, select {
 input[type='submit'] {
     display: inline-block;
     width: auto;
+    color: black;
 }
 
 .errorlist {
@@ -446,15 +455,15 @@ input[type='submit'] {
 }
 
 .alert {
-    padding: 0.5rem;
+    padding: 1rem;
 }
 
 .alert-success {
-    background-color: #dfd;
+    background-color: #325232;
 }
 
 .alert-error {
-    background-color: #ba2121;
+    background-color: #c73737;
     color: #fff;
 }
 
@@ -463,3 +472,7 @@ input[type='submit'] {
     margin: 6px
 }
 
+.row_form {
+    list-style-type: none;
+    display: inline;
+}
