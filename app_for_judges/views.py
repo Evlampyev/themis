@@ -169,8 +169,9 @@ def add_participant(request):
             participant.save()
             logger.info(f'Participant {participant} added')
             messages.success(request, _('Участник добавлен'))
-            return redirect('participants_list')
+            return redirect('participants_list/all')
     else:
         participant_form = ParticipantAddForm()
     return render(request, 'app_for_judges/add_participant.html',
                   {'participant_form': participant_form, 'title': title})
+

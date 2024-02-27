@@ -51,11 +51,26 @@ def add_competition(request):
 
 @login_required
 def competition_activate(request, pk):
-    """Активация конкурса
+    """Активация/деактивация конкурса
     params: pk - id конкурса"""
     competition = Competition.objects.filter(id=pk).first()
-    competition.active = not competition.active
-    competition.save()
+    if competition.active:
+        competition.active = False
+        competition.save()
+        CompetitionResult.objects.all().delete() # очистка таблицы результатов конкурса
+        competition_tasks = CompetitionTask.objects.filter(competition=competition)
+        for task in competition_tasks:
+            TableTask.objects.filter(competition_task=task).delete() # очистка таблицы результатов этапа
+            task.judging = True # разрешение судейства
+            task.save()
+    else:
+        competition.active = True
+        competition.save()
+        competitions = Competition.objects.exclude(id=pk)
+        for comp in competitions:
+            comp.active = False
+            comp.save()
+    logger.info(f"Статус соревнования изменён")
     messages.success(request, "Статус соревнования изменён")
     return redirect('all_competitions')
 
@@ -113,6 +128,7 @@ def view_competition(request, pk):
     competition_tasks = CompetitionTask.objects.filter(competition=competition)
     context['competition_tasks'] = competition_tasks
     context['competition_id'] = pk
+    context['active'] = competition.active
     return render(request, 'app_for_competitions/view_competition_tasks.html', context)
 
 

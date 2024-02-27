@@ -1,3 +1,2 @@
-[INFO    :            app_main.views] - 2024-02-27 18:49:57,697 : home @ 0013: Главная страница
-[INFO    :             django.server] - 2024-02-27 18:49:57,811 : log_message @ 0212: "GET / HTTP/1.1" 200 12217
-[INFO    :             django.server] - 2024-02-27 18:49:57,835 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
+[INFO    :             django.server] - 2024-02-27 20:50:01,285 : log_message @ 0212: "GET /competitions/view_competition/1/ HTTP/1.1" 200 13023
+[INFO    :             django.server] - 2024-02-27 20:50:01,313 : log_message @ 0212: "GET /static/css/stylesheet.css HTTP/1.1" 304 0
