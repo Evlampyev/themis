@@ -34,9 +34,19 @@
         </tbody>
     </table>
     <div class="container">
-        {% if user.judge.status == 'M' or user.judge.status == 'J' %}
-        <a href="{% url 'add_participant' %}" class="btn a_btn">Добавить</a>
-        {% endif %}
+        <div class="btn-col-3">
+            <a href="{% url 'participants_list' filter='active' %}" class="btn a_btn">Активный конкурс</a>
+        </div>
+        <div class="btn-col-3">
+            <a href="{% url 'participants_list' filter='all' %}" class="btn a_btn">Все участники</a>
+        </div>
+        <div class="btn-col-3">
+            {% if user.judge.status == 'M' or user.judge.status == 'J' %}
+            <a href="{% url 'add_participant' %}" class="btn a_btn">Добавить</a>
+            {% else %}
+            <a href="{% url 'participants_list' filter='all' %}" class="btn a_btn">Супер</a>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

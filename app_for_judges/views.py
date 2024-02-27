@@ -145,10 +145,15 @@ def edit_judge(request, pk):
             return render(request, 'app_for_judges/edit_judge.html', {'form': form})
 
 
-def participants_list(request):
-    """Список участников активных соревнований"""
+def participants_list(request, filter):
+    """Список участников активных/всех соревнований"""
     context = {'title': 'Список участников'}
-    participants = Participant.objects.filter(competition__active=True).order_by('competition', 'last_name')
+    if filter == 'active':
+        participants = Participant.objects.filter(competition__active=True).order_by('competition', 'last_name')
+        messages.success(request, _('Показаны участники активных соревнований'))
+    elif filter == 'all':
+        participants = Participant.objects.all().order_by('competition', 'last_name')
+        messages.success(request, _('Показаны все участники'))
     context['participants'] = participants
     context['table_title'] = PARTICIPANT_TABLE_TITLE
     return render(request, 'app_for_judges/view_participants.html', context)

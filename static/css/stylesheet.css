@@ -38,7 +38,7 @@ footer {
     width: 33.333%;
     max-height: 100%;
     min-height: 50vh;
-    border: 2px solid #123123;
+    /*border: 2px solid #123123;*/
     float: left;
 }
 
@@ -111,7 +111,7 @@ a:hover {
     margin: 3px auto 2px;
     height: 42px;
     /*line-height: 50px;*/
- }
+}
 
 .enter {
     float: right;
@@ -393,6 +393,13 @@ span.no {
     border: 1px solid rgb(146, 148, 248);
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-col-3 {
+    width: 33.333%;
+    border: 2px solid #123123;
 }
 
 .btn:hover {
@@ -468,5 +475,5 @@ input[type='submit'] {
 
 .row_form {
     list-style-type: none;
-    display : inline;
-    }
+    display: inline;
+}
