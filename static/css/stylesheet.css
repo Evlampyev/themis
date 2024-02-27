@@ -12,7 +12,6 @@ main {
 
 
 header {
-    background-color: #2ecc71;
     height: 50px;
 }
 
@@ -43,7 +42,7 @@ footer {
     overflow: hidden;
     max-width: 80%;
     min-height: 2px;
-    background-color: #CCFFFF;
+    background-color: #bbcbc9;
     margin: 0 auto;
     border: 1px solid #123123;
     padding: 5px 10px;
@@ -69,35 +68,44 @@ ul {
     margin: 0; /*убираем отступы*/
     padding-left: 0; /*убираем отступы*/
     margin-top: 25px; /*делаем отступ сверху*/
-    background: #819A32; /*добавляем фон всему меню*/
+    /*background: #819A32; !*добавляем фон всему меню*!*/
+    background: #212121;
     height: 50px; /*задаем высоту*/
 }
 
 .a_menu {
     text-decoration: none; /*убираем подчеркивание текста ссылок*/
-    background: #819A32; /*добавляем фон к пункту меню*/
+    /*background: #819A32; !*добавляем фон к пункту меню*!*/
+    background: #212121;
     color: #fff; /*меняем цвет ссылок*/
     padding: 0 15px; /*добавляем отступ*/
     font-family: arial; /*меняем шрифт*/
     line-height: 50px; /*ровняем меню по вертикали*/
     display: block;
-    border-right: 1px solid #677B27; /*добавляем бордюр справа*/
+    border-right: 1px solid #ecf0f1; /*добавляем бордюр справа*/
     -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
     -o-transition: all 0.3s 0.01s ease;
     -webkit-transition: all 0.3s 0.01s ease;
 }
 
 a:hover {
-    background: #D43737; /*добавляем эффект при наведении*/
+    /*background: #6e1a1a; !*добавляем эффект при наведении*!*/
+    color: #f3682f;
+
+}
+
+.a_menu_logo:hover {
+    background: #f3682f; /*добавляем эффект при наведении*/
 }
 
 .a_menu_logo {
     text-decoration: none; /*убираем подчеркивание текста ссылок*/
-    background: #819A32; /*добавляем фон к пункту меню*/
+    /*background: #819A32; !*добавляем фон к пункту меню*!*/
+    background: #212121;
     color: #fff; /*меняем цвет ссылок*/
     padding: 0 4px; /*добавляем отступ*/
     display: block;
-    border-right: 1px solid #677B27; /*добавляем бордюр справа*/
+    border-right: 1px solid #ecf0f1; /*добавляем бордюр справа*/
     -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
     -o-transition: all 0.3s 0.01s ease;
     -webkit-transition: all 0.3s 0.01s ease;
@@ -196,7 +204,7 @@ tbody {
 .table-caption {
     display: block;
     width: 100%;
-    background: #39a7e7;
+    background: #3c7598;
     color: #fff;
     font-size: 20px;
     font-size: 2rem;
@@ -230,11 +238,11 @@ tr {
 }
 
 tr:nth-child(even) {
-    background: #f5f5f5;
+    background: #ebebeb;
 }
 
 tr:hover {
-    background: #c1e4f8;
+    background: #c3d7e3;
 }
 
 @media only all and (min-width: 760px) {
@@ -459,7 +467,7 @@ input[type='submit'] {
 }
 
 .alert-success {
-    background-color: #325232;
+    background-color: #7a8ba2;
 }
 
 .alert-error {
@@ -468,8 +476,10 @@ input[type='submit'] {
 }
 
 .user_name {
-    color: red;
-    margin: 6px
+    color: #7a8ba2;
+    margin: 6px;
+    text-align: center;
+
 }
 
 .row_form {
