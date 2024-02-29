@@ -31,7 +31,7 @@
         {% for j_user in users %}
         <tr>
 
-            <td>{{ j_user.id }}</td>
+            <td>{{ forloop.counter }}</td>
             <td>{{ j_user.first_name }}</td>
             <td>{{ j_user.judge.patronymic }}</td>
             <td>{{ j_user.last_name }}</td>
@@ -54,7 +54,6 @@
                 <br>
                 <a href="{% url 'delete_judge' pk=j_user.id %}">Удалить</a></td>
             {% endif %}
-            <!--            <td class="checkbox"><input type="checkbox"/></td>-->
         </tr>
         {% endfor %}
         </tbody>

@@ -26,14 +26,14 @@
             <li><a class="a_menu" href="{% url 'all_judges' %}">Судьи</a></li>
             <li><a class="a_menu" href="#">Участники</a>
                 <ul>
-                    <li><a class="a_menu" href="{% url 'participants_list' %}">Список</a></li>
+                    <li><a class="a_menu" href="{% url 'participants_list' filter='all' %}">Список</a></li>
                 </ul>
             </li>
             <li><a class="a_menu" href="{% url 'contacts' %}">Контакты</a></li>
             <li><a class="a_menu" href="{% url 'about' %}">Обо мне</a></li>
             <div class="container enter">
                 {% if user.is_authenticated %}
-                <div class="user_name">{{user.judge.get_status_display }} : {{ user.username }}</div>
+                <div class="user_name">{{user.judge.get_status_display }} <br> {{ user.username }}</div>
                 <a href="{% url 'users:logout' %}" class="btn a_btn">Выйти</a>
                 {% else %}
                 <a href="{% url 'users:login' %}" class="btn a_btn">Войти</a>

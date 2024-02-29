@@ -14,14 +14,16 @@
         <tbody>
         {% for task in competition_tasks %}
         <tr>
-            <td>{{ task.id }}</td>
+            <td>{{ forloop.counter }}</td>
             <td style="text-align: left">{{ task.name }}</td>
+            {% if active %}
             <td><a href="{% url 'view_task_result' pk=task.id pc=competition_id %}">Результаты</a></td>
             {% if user.judge.status == "M" or user.judge.status == "J" %}
             {% if task.judging == True %}
             <td><a href="{% url 'judge_task' pk=task.id pc=competition_id %}">Судить</a></td>
             {% else %}
             <td>Отсужен</td>
+            {% endif %}
             {% endif %}
             {% endif %}
         </tr>

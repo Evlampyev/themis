@@ -38,7 +38,6 @@ def edit_judges(request):
     # users = Judge.objects.all()
     users = User.objects.filter(is_active=True).order_by('last_name')
     competitions_dict = {}
-
     for user in users:
         competitions_dict[user.pk] = [comp for comp in
                                       user.judge.competitions.all().values_list('name',
@@ -50,7 +49,6 @@ def edit_judges(request):
         'competitions': competitions_dict,
         # 'user_status': user_status
     }
-
     return render(request, 'app_for_judges/view_judges.html', context=context)
 
 
@@ -58,8 +56,6 @@ def edit_judges(request):
 def delete_judge(request, pk):
     """Удаление судьи"""
     user = User.objects.get(id=pk)
-    # judge.delete()
-    # logger.info(f'{user} deleted')
     logger.info(f'{user.judge} deleted')
     user.is_active = False
     user.save()
@@ -149,10 +145,15 @@ def edit_judge(request, pk):
             return render(request, 'app_for_judges/edit_judge.html', {'form': form})
 
 
-def participants_list(request):
-    """Список участников активных соревнований"""
+def participants_list(request, filter):
+    """Список участников активных/всех соревнований"""
     context = {'title': 'Список участников'}
-    participants = Participant.objects.filter(competition__active=True).order_by('competition','last_name')
+    if filter == 'active':
+        participants = Participant.objects.filter(competition__active=True).order_by('competition', 'last_name')
+        messages.success(request, _('Показаны участники активных соревнований'))
+    elif filter == 'all':
+        participants = Participant.objects.all().order_by('competition', 'last_name')
+        messages.success(request, _('Показаны все участники'))
     context['participants'] = participants
     context['table_title'] = PARTICIPANT_TABLE_TITLE
     return render(request, 'app_for_judges/view_participants.html', context)
@@ -168,8 +169,9 @@ def add_participant(request):
             participant.save()
             logger.info(f'Participant {participant} added')
             messages.success(request, _('Участник добавлен'))
-            return redirect('participants_list')
+            return redirect('participants_list/all')
     else:
         participant_form = ParticipantAddForm()
     return render(request, 'app_for_judges/add_participant.html',
                   {'participant_form': participant_form, 'title': title})
+

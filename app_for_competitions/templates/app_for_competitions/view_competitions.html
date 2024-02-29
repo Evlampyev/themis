@@ -26,7 +26,7 @@
         <tbody>
         {% for competition in competitions %}
         <tr>
-            <td>{{competition.id}}</td>
+            <td>{{forloop.counter}}</td>
             <td>{{competition.name}}</td>
             <td><a href="{% url 'view_competition' pk=competition.id %}"> {{ competition.fullname }}</a></td>
             <td>{{competition.date}}</td>
