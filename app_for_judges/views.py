@@ -40,7 +40,11 @@ def judges_list(request, filter):
         users = User.objects.filter(is_active=True).order_by('last_name')
     elif filter == 'judge':
         context['title'] = "Список судей"
-        users = User.objects.filter(is_active=True).order_by('last_name')
+        temp_users = User.objects.filter(is_active=True).order_by('last_name')
+        users = []
+        for user in temp_users:
+            if user.judge.status == 'J':
+                users.append(user)
 
     competitions_dict = {}
     for user in users:
