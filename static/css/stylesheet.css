@@ -486,3 +486,21 @@ input[type='submit'] {
     list-style-type: none;
     display: inline;
 }
+.form_for_table_task_form {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3px;
+    margin-top: 2px;
+}
+.form_container{
+    background: lightgray;
+}
+.form_field {
+    width:95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.2em;
+    margin-bottom: 0.3em;
+
+}

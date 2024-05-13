@@ -17,6 +17,8 @@
 
 * Стратегии расширения [Django User Model](https://habr.com/ru/articles/313764/)
 
+* Работа с формами [proglib.io](https://proglib.io/p/study_html_forms)
+
 * Слияние [веток](https://git.github.io/git-scm.com/book/ru/v2/Ветвление-в-Git-Перебазирование/)
 
 #### развернуть на vds с debian/ubuntu:

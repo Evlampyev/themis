@@ -10,8 +10,12 @@
 <h2 class="center">{% if id %} Изменение данных пользователя {% else %} Новый пользователь {% endif %}</h2>
 <form method="post" novalidate>
     {% csrf_token %}
-    {{ participant_form.as_p }}
-    <input type="submit" value="Сохранить"/>
+    <div class="form_container">
+        {{ participant_form.as_div }}
+    </div>
+    <div class="container">
+        <input class="btn a_btn" type="submit" value="Сохранить"/>
+    </div>
 </form>
 
 {% endblock content %}

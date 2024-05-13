@@ -32,7 +32,7 @@ class TableTaskForm(forms.ModelForm):
         model = TableTask
         fields = ['participant', 'time']
 
-    time = forms.TimeField(widget=forms.TimeInput(format='%H:%M:%S'))
+    time = forms.TimeField(widget=forms.TimeInput(format='%H:%M:%S'), label=_("Время"))
     participant = forms.ModelChoiceField(
-        queryset=Participant.objects.filter(competition__active=True).order_by('last_name'))
+        queryset=Participant.objects.filter(competition__active=True).order_by('last_name'), label=_("Участник"))
     # выбираются участники чей конкурс сейчас активен, по идее должны выбираться, кто на этот конкурс заявлен
