@@ -31,24 +31,24 @@ PARTICIPANT_TABLE_TITLE = ["Фамилия", "Имя", 'Конкурс', 'Ком
 
 
 @login_required
-def edit_judges(request):
-    """Редактирование списка судей"""
+def judges_list(request, filter):
+    """Список судей"""
     # @login_required - декоратор для проверки авторизации
-    # user_status = request.user.judge.status # не нужно, получаю в шаблоне
-    # users = Judge.objects.all()
-    users = User.objects.filter(is_active=True).order_by('last_name')
+    context = {'table_title': JUDGE_TABLE_TITLE}
+    if filter == 'all':
+        context['title'] = "Список организаторов"
+        users = User.objects.filter(is_active=True).order_by('last_name')
+    elif filter == 'judge':
+        context['title'] = "Список судей"
+        users = User.objects.filter(is_active=True).order_by('last_name')
+
     competitions_dict = {}
     for user in users:
         competitions_dict[user.pk] = [comp for comp in
                                       user.judge.competitions.all().values_list('name',
                                                                                 flat=True)]
-    context = {
-        'title': "Список судей",
-        'table_title': JUDGE_TABLE_TITLE,
-        'users': users,
-        'competitions': competitions_dict,
-        # 'user_status': user_status
-    }
+    context['users'] = users
+    context['competitions'] = competitions_dict
     return render(request, 'app_for_judges/view_judges.html', context=context)
 
 
@@ -174,4 +174,3 @@ def add_participant(request):
         participant_form = ParticipantAddForm()
     return render(request, 'app_for_judges/add_participant.html',
                   {'participant_form': participant_form, 'title': title})
-

@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import edit_judges, delete_judge, add_judge, edit_judge, participants_list, add_participant
+from .views import judges_list, delete_judge, add_judge, edit_judge, participants_list, add_participant
 
 
 urlpatterns = [
-    path('all/', edit_judges, name='all_judges'),
+    path('judges_list/<str:filter>', judges_list, name='judges_list'),
     path('edit/<int:pk>/', edit_judge, name='edit_judge'),
     path('delete/<int:pk>/', delete_judge, name='delete_judge'),
     path('add/', add_judge, name='add_judge'),

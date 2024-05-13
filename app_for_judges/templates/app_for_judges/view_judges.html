@@ -62,12 +62,15 @@
 
     <div class="container">
         <div class="btn-col-3">
-            <a href="" class="btn a_btn">Все организаторы</a></div>
+            <a href="{% url 'judges_list' filter='all' %}" class="btn a_btn">Все организаторы</a>
+        </div>
         <div class="btn-col-3">
-            <a href="" class="btn a_btn">Только судьи</a></div>
+            <a href="{% url 'judges_list' filter='judge' %}" class="btn a_btn">Только судьи</a>
+        </div>
         <div class="btn-col-3">
             {% if user.judge.status == 'M' or user.judge.status == 'J' %}
             <a href="{% url 'add_judge' %}" class="btn a_btn">Добавить</a>
+
             {% endif %}
         </div>
     </div>
