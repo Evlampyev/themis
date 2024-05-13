@@ -63,4 +63,3 @@ class ParticipantAddForm(forms.ModelForm):
         queryset=ParticipantsTeam.objects.all().order_by('name'), blank=True, required=False, label=_("Команда"))
 
     required_css_class = "form_field"
-
