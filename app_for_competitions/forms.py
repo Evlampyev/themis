@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 class CompetitionForm(forms.ModelForm):
     class Meta:
         model = Competition
-
         fields = ['name', 'fullname']
 
     date = forms.DateField(label=_("Дата"), initial=datetime.date.today,
@@ -36,3 +35,15 @@ class TableTaskForm(forms.ModelForm):
     participant = forms.ModelChoiceField(
         queryset=Participant.objects.filter(competition__active=True).order_by('last_name'), label=_("Участник"))
     # выбираются участники чей конкурс сейчас активен, по идее должны выбираться, кто на этот конкурс заявлен
+
+
+class CompetitionTaskForm(forms.ModelForm):
+    class Meta:
+        model = CompetitionTask
+        fields = ['name', 'judging']
+
+    required_css_class = "form_field"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].label = _('Название этапа')

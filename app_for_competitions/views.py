@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from logging import getLogger
-from .forms import CompetitionForm, TableTaskForm
+from .forms import CompetitionForm, TableTaskForm, CompetitionTaskForm
 from .models import Competition, CompetitionTask
 from app_for_judges.models import TableTask, CompetitionResult
 from django.contrib import messages
@@ -12,7 +12,7 @@ from django.contrib import messages
 
 logger = getLogger(__name__)
 
-COMPETITIONS_TABLE_TITLE = ['№ п/п', 'Краткое название', "Полное наименование", "Сроки",
+COMPETITIONS_TABLE_TITLE = ["№\nп/п", 'Краткое название', "Полное наименование", "Сроки",
                             "Активен", "Редактор"]
 TASK_TABLE_TITLE = ['Участник', "Время, \nмм:сс", "Место", "Редактор"]
 
@@ -57,11 +57,11 @@ def competition_activate(request, pk):
     if competition.active:
         competition.active = False
         competition.save()
-        CompetitionResult.objects.all().delete() # очистка таблицы результатов конкурса
+        CompetitionResult.objects.all().delete()  # очистка таблицы результатов конкурса
         competition_tasks = CompetitionTask.objects.filter(competition=competition)
         for task in competition_tasks:
-            TableTask.objects.filter(competition_task=task).delete() # очистка таблицы результатов этапа
-            task.judging = True # разрешение судейства
+            TableTask.objects.filter(competition_task=task).delete()  # очистка таблицы результатов этапа
+            task.judging = True  # разрешение судейства
             task.save()
     else:
         competition.active = True
@@ -190,6 +190,25 @@ def judge_task(request, pk, pc):
         form = TableTaskForm()
         context['form'] = form
         return render(request, 'app_for_competitions/judge_task.html', context)
+
+
+def create_competition_task(request, pc):
+    """Создание этапа конкурса"""
+    competition = get_object_or_404(Competition, id=pc)
+    if request.method == 'POST':
+        form = CompetitionTaskForm(request.POST)
+        if form.is_valid():
+            competition_task=CompetitionTask(competition=competition, name=form.cleaned_data['name'],
+                                             judging=form.cleaned_data['judging'])
+            competition_task.save()
+            logger.info(f': Task {competition_task.name} created')
+            messages.success(request, f'Этап конкурса "{competition.name}" добавлен')
+            return redirect('view_competition', pk=pc)
+    else:
+        form = CompetitionTaskForm()
+    return render(request, 'app_for_competitions/create_competition_task.html', {'form': form})
+
+
 
 
 def view_task_result(request, pk, pc):
