@@ -20,7 +20,11 @@
             <td><a href="{% url 'view_task_result' pk=task.id pc=competition_id %}">Результаты</a></td>
             {% if user.judge.status == "M" or user.judge.status == "J" %}
             {% if task.judging == True %}
-            <td><a href="{% url 'judge_task' pk=task.id pc=competition_id %}">Судить</a></td>
+            <td>
+                <a href="{% url 'judge_task' pk=task.id pc=competition_id %}">Судить</a>
+                <br>
+                <a href="">Изменить</a>
+            </td>
             {% else %}
             <td>Отсужен</td>
             {% endif %}

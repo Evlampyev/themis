@@ -60,6 +60,8 @@ class ParticipantAddForm(forms.ModelForm):
     competition = forms.ModelChoiceField(
         queryset=Competition.objects.all().order_by('name'), blank=True, label=_("Конкурс"))
     team = forms.ModelChoiceField(
-        queryset=ParticipantsTeam.objects.all().order_by('name'), blank=True, label=_("Команда"))
+        queryset=ParticipantsTeam.objects.all().order_by('name'), blank=True, required=False, label=_("Команда"))
 
     required_css_class = "form_field"
+    non_required_css_class = "form_field"
+
