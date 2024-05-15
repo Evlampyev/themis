@@ -68,11 +68,11 @@ class ParticipantTeamsAdmin(admin.ModelAdmin):
     search_help_text = "Поиск по полю Название команды "
 
 
-class TableTaskAdmine(admin.ModelAdmin):
+class TableTaskAdmin(admin.ModelAdmin):
     model = TableTask
-    list_display = ['competition_task', 'participant', 'time', 'result_place']
+    list_display = ['competition_task', 'participant', 'points', 'total_time', 'result_place']
     ordering = ['competition_task', 'participant']
-    list_filter = ['competition_task', 'participant']
+    list_filter = ['competition_task', 'participant', 'result_place']
 
 
 class CompetitionResultAdmin(admin.ModelAdmin):
@@ -84,5 +84,5 @@ class CompetitionResultAdmin(admin.ModelAdmin):
 admin.site.register(Judge, JudgeInline)
 admin.site.register(Participant, ParticipantsAdmin)
 admin.site.register(ParticipantsTeam, ParticipantTeamsAdmin)
-admin.site.register(TableTask, TableTaskAdmine)
+admin.site.register(TableTask, TableTaskAdmin)
 admin.site.register(CompetitionResult, CompetitionResultAdmin)

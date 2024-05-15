@@ -198,6 +198,7 @@ def create_competition_task(request, pc):
     if request.method == 'POST':
         form = CompetitionTaskForm(request.POST)
         if form.is_valid():
+            # СОЗДАТЬ ЗАПИСЬ В ТАБЛИЦУ
             competition_task=CompetitionTask(competition=competition, name=form.cleaned_data['name'],
                                              judging=form.cleaned_data['judging'])
             competition_task.save()

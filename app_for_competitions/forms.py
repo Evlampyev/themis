@@ -40,9 +40,14 @@ class TableTaskForm(forms.ModelForm):
 class CompetitionTaskForm(forms.ModelForm):
     class Meta:
         model = CompetitionTask
-        fields = ['name', 'judging']
+        fields = ['name', 'judging', 'name_intermediate_points_1', 'name_intermediate_points_2',
+                  'name_intermediate_points_3', 'name_intermediate_points_4', "name_points", "name_correction_score_up",
+                  "name_correction_score_down", "name_intermediate_time_1", "name_intermediate_time_1",
+                  "name_average_time", "name_total_time", "name_correction_time" ]
+
 
     required_css_class = "form_field"
+    not_required_css_class = "form_field"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
