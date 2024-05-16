@@ -42,7 +42,7 @@ class CompetitionTaskForm(forms.ModelForm):
         model = CompetitionTask
         fields = ['name', 'judging', 'name_intermediate_points_1', 'name_intermediate_points_2',
                   'name_intermediate_points_3', 'name_intermediate_points_4', "name_points", "name_correction_score_up",
-                  "name_correction_score_down", "name_intermediate_time_1", "name_intermediate_time_1",
+                  "name_correction_score_down", "name_intermediate_time_1", "name_intermediate_time_2",
                   "name_average_time", "name_total_time", "name_correction_time" ]
 
 

@@ -45,7 +45,7 @@ class CompetitionTask(models.Model):
                                                   verbose_name=_('Промежуточные баллы - 3'))
     name_intermediate_points_4 = models.CharField(max_length=20, default=None, blank=True,
                                                   verbose_name=_('Промежуточные баллы - 4'))
-    name_points = models.CharField(max_length=20, default=None, blank=True, verbose_name=_('Сумма баллов')),
+    name_points = models.CharField(max_length=20, default=None, blank=True, verbose_name=_('Сумма баллов'))
     name_correction_score_up = models.CharField(max_length=20, default=None, blank=True,
                                                 verbose_name=_('Корректирующий балл, если больше'))
     name_correction_score_down = models.CharField(max_length=20, default=None, blank=True,

@@ -114,7 +114,6 @@ class TableTask(models.Model):
 
     competition_task = models.ForeignKey(CompetitionTask, on_delete=models.CASCADE, verbose_name=_('Этап'))
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, verbose_name=_('Участник'))
-
     intermediate_points_1 = models.IntegerField(_('Промежуточные баллы - 1'), default=0)
     intermediate_points_2 = models.IntegerField(_('Промежуточные баллы - 2'), default=0)
     intermediate_points_3 = models.IntegerField(_('Промежуточные баллы - 3'), default=0)

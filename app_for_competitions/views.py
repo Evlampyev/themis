@@ -14,7 +14,6 @@ logger = getLogger(__name__)
 
 COMPETITIONS_TABLE_TITLE = ["№\nп/п", 'Краткое название', "Полное наименование", "Сроки",
                             "Активен", "Редактор"]
-TASK_TABLE_TITLE = ['Участник', "Время, \nмм:сс", "Место", "Редактор"]
 
 RESULT_COMPETITION_TABLE_TITLE = ['Место', 'Участник', "Сумма мест"]
 
@@ -198,9 +197,26 @@ def create_competition_task(request, pc):
     if request.method == 'POST':
         form = CompetitionTaskForm(request.POST)
         if form.is_valid():
-            # СОЗДАТЬ ЗАПИСЬ В ТАБЛИЦУ
-            competition_task=CompetitionTask(competition=competition, name=form.cleaned_data['name'],
-                                             judging=form.cleaned_data['judging'])
+            competition_task = CompetitionTask(competition=competition, name=form.cleaned_data['name'],
+                                               judging=form.cleaned_data['judging'],
+                                               name_intermediate_points_1=form.cleaned_data[
+                                                   'name_intermediate_points_1'],
+                                               name_intermediate_points_2=form.cleaned_data[
+                                                   'name_intermediate_points_2'],
+                                               name_intermediate_points_3=form.cleaned_data[
+                                                   'name_intermediate_points_3'],
+                                               name_intermediate_points_4=form.cleaned_data[
+                                                   'name_intermediate_points_4'],
+                                               name_points=form.cleaned_data['name_points'],
+                                               name_correction_score_up=form.cleaned_data['name_correction_score_up'],
+                                               name_correction_score_down=form.cleaned_data[
+                                                   'name_correction_score_down'],
+                                               name_intermediate_time_1=form.cleaned_data['name_intermediate_time_1'],
+                                               name_intermediate_time_2=form.cleaned_data['name_intermediate_time_2'],
+                                               name_average_time=form.cleaned_data['name_average_time'],
+                                               name_total_time=form.cleaned_data['name_total_time'],
+                                               name_correction_time=form.cleaned_data['name_correction_time']
+                                               )
             competition_task.save()
             logger.info(f': Task {competition_task.name} created')
             messages.success(request, f'Этап конкурса "{competition.name}" добавлен')
@@ -208,8 +224,6 @@ def create_competition_task(request, pc):
     else:
         form = CompetitionTaskForm()
     return render(request, 'app_for_competitions/create_competition_task.html', {'form': form})
-
-
 
 
 def view_task_result(request, pk, pc):
@@ -221,10 +235,24 @@ def view_task_result(request, pk, pc):
     competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
     table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
         'participant')  # таблица результатов
+    task_table_title = ['Участник']
+
+    all_fields = []
+    comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
+    print("____", comp_task_as_dict[0])
+    for index, (name, value) in enumerate(comp_task_as_dict[0].items()):
+        print(f"{name=}, {value=}")
+        if name.startswith('name_') and value != "":
+            all_fields.append(value)
+
+    task_table_title.extend(all_fields)
+    task_table_title += ["Место", "Редактор"]
+
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'table': table_task,
-               'table_title': TASK_TABLE_TITLE}
+               'table_title': task_table_title}
+
     print(f'{table_task = }')
     return render(request, 'app_for_competitions/view_task_result.html', context)
 
