@@ -37,26 +37,26 @@ class CompetitionTask(models.Model):
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, verbose_name=_('Конкурс'))
     judging = models.BooleanField(default=True, verbose_name=_('Возможность судейства'))
 
-    name_intermediate_points_1 = models.CharField(max_length=20, default=None, blank=True,
+    name_intermediate_points_1 = models.CharField(max_length=30, default=None, blank=True,
                                                   verbose_name=_('Промежуточные баллы - 1'))
-    name_intermediate_points_2 = models.CharField(max_length=20, default=None, blank=True,
+    name_intermediate_points_2 = models.CharField(max_length=30, default=None, blank=True,
                                                   verbose_name=_('Промежуточные баллы - 2'))
-    name_intermediate_points_3 = models.CharField(max_length=20, default=None, blank=True,
+    name_intermediate_points_3 = models.CharField(max_length=30, default=None, blank=True,
                                                   verbose_name=_('Промежуточные баллы - 3'))
-    name_intermediate_points_4 = models.CharField(max_length=20, default=None, blank=True,
+    name_intermediate_points_4 = models.CharField(max_length=30, default=None, blank=True,
                                                   verbose_name=_('Промежуточные баллы - 4'))
-    name_points = models.CharField(max_length=20, default=None, blank=True, verbose_name=_('Сумма баллов'))
-    name_correction_score_up = models.CharField(max_length=20, default=None, blank=True,
+    name_points = models.CharField(max_length=30, default=None, blank=True, verbose_name=_('Сумма баллов'))
+    name_correction_score_up = models.CharField(max_length=30, default=None, blank=True,
                                                 verbose_name=_('Корректирующий балл, если больше'))
-    name_correction_score_down = models.CharField(max_length=20, default=None, blank=True,
+    name_correction_score_down = models.CharField(max_length=30, default=None, blank=True,
                                                   verbose_name=_('Корректирующий балл, если меньше'))
-    name_intermediate_time_1 = models.CharField(max_length=20, default=None, blank=True,
+    name_intermediate_time_1 = models.CharField(max_length=30, default=None, blank=True,
                                                 verbose_name=_('Промежуточное время - 1'))
-    name_intermediate_time_2 = models.CharField(max_length=20, default=None, blank=True,
+    name_intermediate_time_2 = models.CharField(max_length=30, default=None, blank=True,
                                                 verbose_name=_('Промежуточное время - 2'))
-    name_average_time = models.CharField(max_length=20, default=None, blank=True, verbose_name=_('Среднее время'))
-    name_total_time = models.CharField(max_length=20, default=None, blank=True, verbose_name=_('Время'))
-    name_correction_time = models.CharField(max_length=20, default=None, blank=True,
+    name_average_time = models.CharField(max_length=30, default=None, blank=True, verbose_name=_('Среднее время'))
+    name_total_time = models.CharField(max_length=30, default=None, blank=True, verbose_name=_('Время'))
+    name_correction_time = models.CharField(max_length=30, default=None, blank=True,
                                             verbose_name=_('Корректирующее время'))
 
     def __str__(self):
