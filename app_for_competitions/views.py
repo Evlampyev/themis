@@ -131,6 +131,24 @@ def view_competition(request, pk):
     return render(request, 'app_for_competitions/view_competition_tasks.html', context)
 
 
+def get_title_and_fields_name(obj: object):
+    """Получения заголовков полей таблицы результатов и
+    названия этих полей
+     :param obj: запись результата участника в таблице table_tasks
+     """
+    title = ['Участник']
+    fields = ['participant']
+
+    for index, (name, value) in enumerate(obj.items()):
+        if name.startswith('name_') and value != "":
+            title.append(value)
+            fields.append(name[5:])
+
+    title += ["Место", "Редактор"]
+    fields += ['result_place']
+    return title, fields
+
+
 def end_judging(request, pk: int):
     """Завершение судейства для этапа конкурса
     :param pk: id этапа конкурса
@@ -161,13 +179,22 @@ def judge_task(request, pk, pc):
     """
     competition = Competition.objects.filter(id=pc).first()  # конкурс
     competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
-    table_task = TableTask.objects.filter(competition_task=competition_task).order_by('time')  # таблица результатов
 
+    comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
+    my_obj = comp_task_as_dict[0]
+    task_table_title, fields_name = get_title_and_fields_name(my_obj)
+    if competition_task.name_points != "":
+        judging_criteria = 'points'  # судить по графе баллы
+
+    else:
+        judging_criteria = 'total_time'  # судить по графе время
+
+    table_task = TableTask.objects.filter(competition_task=competition_task).order_by(judging_criteria)  # таблица результатов
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'pk': competition_task.id,
                'table': table_task,
-               'table_title': TASK_TABLE_TITLE}
+               'table_title': task_table_title}
 
     if request.method == 'POST':
         form = TableTaskForm(request.POST)
@@ -177,7 +204,7 @@ def judge_task(request, pk, pc):
             table_task = TableTask(competition_task=competition_task, participant=participant, time=time)
             table_task.save()
             table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
-                'time')  # таблица результатов
+                judging_criteria)  # таблица результатов
             i = 1
             for row in table_task:
                 row.result_place = i
@@ -191,7 +218,7 @@ def judge_task(request, pk, pc):
         return render(request, 'app_for_competitions/judge_task.html', context)
 
 
-def create_competition_task(request, pc):
+def create_competition_task(request, pc: int):
     """Создание этапа конкурса"""
     competition = get_object_or_404(Competition, id=pc)
     if request.method == 'POST':
@@ -226,7 +253,7 @@ def create_competition_task(request, pc):
     return render(request, 'app_for_competitions/create_competition_task.html', {'form': form})
 
 
-def view_task_result(request, pk, pc):
+def view_task_result(request, pk: int, pc: int):
     """Просмотр результатов этапа конкурса
     params: pk - id этапа
             pc - id конкурса
@@ -235,21 +262,11 @@ def view_task_result(request, pk, pc):
     competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
     table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
         'participant')  # таблица результатов
-    task_table_title = ['Участник']
-
-    all_fields = []
-    fields_name = ['participant']
     comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
-    print("____", comp_task_as_dict[0])
-    for index, (name, value) in enumerate(comp_task_as_dict[0].items()):
-        print(f"{name=}, {value=}")
-        if name.startswith('name_') and value != "":
-            all_fields.append(value)
-            fields_name.append(name[5:])
 
-    task_table_title.extend(all_fields)
-    task_table_title += ["Место", "Редактор"]
-    fields_name += ['result_place']
+    my_obj = comp_task_as_dict[0]
+    task_table_title, fields_name = get_title_and_fields_name(my_obj)
+
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'table': table_task,

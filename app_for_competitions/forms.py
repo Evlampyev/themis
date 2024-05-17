@@ -29,9 +29,9 @@ class CompetitionForm(forms.ModelForm):
 class TableTaskForm(forms.ModelForm):
     class Meta:
         model = TableTask
-        fields = ['participant', 'time']
+        fields = ['participant', "intermediate_points_1", "intermediate_points_2", "points", 'correction_time']
 
-    time = forms.TimeField(widget=forms.TimeInput(format='%H:%M:%S'), label=_("Время"))
+    # time = forms.TimeField(widget=forms.TimeInput(format='%H:%M:%S'), label=_("Время"))
     participant = forms.ModelChoiceField(
         queryset=Participant.objects.filter(competition__active=True).order_by('last_name'), label=_("Участник"))
     # выбираются участники чей конкурс сейчас активен, по идее должны выбираться, кто на этот конкурс заявлен
