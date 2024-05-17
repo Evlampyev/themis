@@ -238,22 +238,25 @@ def view_task_result(request, pk, pc):
     task_table_title = ['Участник']
 
     all_fields = []
+    fields_name = ['participant']
     comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
     print("____", comp_task_as_dict[0])
     for index, (name, value) in enumerate(comp_task_as_dict[0].items()):
         print(f"{name=}, {value=}")
         if name.startswith('name_') and value != "":
             all_fields.append(value)
+            fields_name.append(name[5:])
 
     task_table_title.extend(all_fields)
     task_table_title += ["Место", "Редактор"]
-
+    fields_name += ['result_place']
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'table': table_task,
-               'table_title': task_table_title}
+               'table_title': task_table_title,
+               'fields_name': fields_name}
 
-    print(f'{table_task = }')
+    print(f'{fields_name = }')
     return render(request, 'app_for_competitions/view_task_result.html', context)
 
 

@@ -1,6 +1,7 @@
+{% load competition_tags %}
 <div class="row">
 
-    {% if  table is not none %}
+    {% if table is not none %}
     <div class="table-caption">Список участников</div>
     <table id="table">
         <thead>
@@ -19,9 +20,9 @@
         <tbody>
         {% for row in table %}
         <tr>
-            <td>{{ row.participant }}</td>
-            <td>{{ row.time }}</td>
-            <td>{{ row.result_place }}</td>
+            {% for name in fields_name %}
+            <td>{{ row|my_getattr:name }}</td>
+            {% endfor %}
             {% if user.judge.status == 'M' or user.judge.status == 'J' %}
             <td class="actions"><a href="#">Редактировать</a>
                 <p></p><a href='{% url "delete_participant_from_table_task" pk=row.id %}'>Удалить</a></td>
