@@ -27,9 +27,22 @@ class CompetitionForm(forms.ModelForm):
 
 
 class TableTaskForm(forms.ModelForm):
+    name_of_fields = []
+
+    def __init__(self, *args, **kwargs):
+        name_of_fields = args[0]
+        print(name_of_fields)
+        super(TableTaskForm, self).__init__(*args, **kwargs)
+        self.fields = self.name_of_fields
+
     class Meta:
         model = TableTask
-        fields = ['participant', "intermediate_points_1", "intermediate_points_2", "points", 'correction_time']
+        # fields = ['participant', "intermediate_points_1", "intermediate_points_2", "points", 'correction_time']
+        # fields = [super()]
+
+    Meta.attrs['fields'] = name_of_fields
+
+    # fields = TableTaskForm.fields
 
     # time = forms.TimeField(widget=forms.TimeInput(format='%H:%M:%S'), label=_("Время"))
     participant = forms.ModelChoiceField(

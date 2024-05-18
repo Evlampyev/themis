@@ -214,6 +214,8 @@ def judge_task(request, pk, pc):
             return redirect('judge_task', pk=pk, pc=pc)
     else:
         form = TableTaskForm()
+        form.field = fields_name
+        print(f"{fields_name = }")
         context['form'] = form
         return render(request, 'app_for_competitions/judge_task.html', context)
 
