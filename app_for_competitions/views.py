@@ -189,7 +189,8 @@ def judge_task(request, pk, pc):
     else:
         judging_criteria = 'total_time'  # судить по графе время
 
-    table_task = TableTask.objects.filter(competition_task=competition_task).order_by(judging_criteria)  # таблица результатов
+    table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
+        judging_criteria)  # таблица результатов
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'pk': competition_task.id,
@@ -200,8 +201,28 @@ def judge_task(request, pk, pc):
         form = TableTaskForm(request.POST)
         if form.is_valid():
             participant = form.cleaned_data['participant']
-            time = form.cleaned_data['time']
-            table_task = TableTask(competition_task=competition_task, participant=participant, time=time)
+            intermediate_points_1 = form.cleaned_data['intermediate_points_1']
+            intermediate_points_2 = form.cleaned_data['intermediate_points_2']
+            intermediate_points_3 = form.cleaned_data['intermediate_points_3']
+            intermediate_points_4 = form.cleaned_data['intermediate_points_4']
+            points = form.cleaned_data['points']
+            correction_score_up = form.cleaned_data['correction_score_up']
+            correction_score_down = form.cleaned_data['correction_score_down']
+            intermediate_time_1 = form.cleaned_data['intermediate_time_1']
+            intermediate_time_2 = form.cleaned_data['intermediate_time_2']
+            average_time = form.cleaned_data['average_time']
+            total_time = form.cleaned_data['total_time']
+            correction_time = form.cleaned_data['correction_time']
+
+            table_task = TableTask(competition_task=competition_task, participant=participant,
+                                   intermediate_points_1=intermediate_points_1,
+                                   intermediate_points_2=intermediate_points_2,
+                                   intermediate_points_3=intermediate_points_3,
+                                   intermediate_points_4=intermediate_points_4,
+                                   points=points, correction_score_up=correction_score_up,
+                                   correction_score_down=correction_score_down, intermediate_time_1=intermediate_time_1,
+                                   intermediate_time_2=intermediate_time_2, average_time=average_time,
+                                   total_time=total_time, correction_time=correction_time)
             table_task.save()
             table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
                 judging_criteria)  # таблица результатов
@@ -210,13 +231,18 @@ def judge_task(request, pk, pc):
                 row.result_place = i
                 row.save()
                 i += 1
+            logger.info(f'Добавлен результат участника {participant}')
             messages.success(request, f"Результат  {participant} добавлен")
             return redirect('judge_task', pk=pk, pc=pc)
+        else:
+            print("Форма не валидна")
+            messages.error(request, f"Не верные данные для ввода")
+            return redirect('judge_task', pk=pk, pc=pc)
+
     else:
         form = TableTaskForm()
-        form.field = fields_name
-        print(f"{fields_name = }")
         context['form'] = form
+        context['fields_name'] = fields_name
         return render(request, 'app_for_competitions/judge_task.html', context)
 
 
