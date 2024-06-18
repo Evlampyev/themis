@@ -70,6 +70,9 @@ class ParticipantTeamsAdmin(admin.ModelAdmin):
 
 class TableTaskAdmin(admin.ModelAdmin):
     def admin_total_time(self, obj):
+        """
+        Изменение представления времени в админ панели
+        """
         return obj.total_time.strftime("%M:%S")
 
     admin_total_time.admin_order_field = 'total_time'
