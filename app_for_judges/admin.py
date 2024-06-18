@@ -69,10 +69,18 @@ class ParticipantTeamsAdmin(admin.ModelAdmin):
 
 
 class TableTaskAdmin(admin.ModelAdmin):
+    def admin_total_time(self, obj):
+        return obj.total_time.strftime("%M:%S")
+
+    admin_total_time.admin_order_field = 'total_time'
+    admin_total_time.short_description = 'Общее время'
+
     model = TableTask
-    list_display = ['competition_task', 'participant', 'points', 'total_time', 'result_place']
+    list_display = ['competition_task', 'participant', 'points', 'admin_total_time', 'result_place']
     ordering = ['competition_task', 'participant']
     list_filter = ['competition_task', 'participant', 'result_place']
+    search_fields = ['competition_task']
+    search_help_text = "Поиск по полю Название этапа'"
 
 
 class CompetitionResultAdmin(admin.ModelAdmin):

@@ -159,6 +159,22 @@ def get_ordering_table_task(competition_task, first, second):
     return result
 
 
+def get_judging_categories(competition_task):
+    if competition_task.name_points != "":
+        judging_criteria_first = '-points'  # судить по графе баллы по убыванию
+    else:
+        judging_criteria_first = 'total_time'  # судить по графе время по возрастанию
+
+    if competition_task.name_correction_time != "":
+        judging_criteria_second = 'correction_time'  # корректировать по времени
+    elif competition_task.name_correction_score_up != "":
+        judging_criteria_second = 'correction_score_up'  # корректировать по баллам вверх
+    else:
+        judging_criteria_second = '-correction_score_down'  # корректировать по баллам вниз
+
+    return judging_criteria_first, judging_criteria_second
+
+
 def end_judging(request, pk: int):
     """Завершение судейства для этапа конкурса
     :param pk: id этапа конкурса
@@ -193,19 +209,8 @@ def judge_task(request, pk, pc):
     comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
     my_obj = comp_task_as_dict[0]
     task_table_title, fields_name = get_title_and_fields_name(my_obj)  # получение заголовков таблицы и имен полей
-    if competition_task.name_points != "":
-        judging_criteria_first = '-points'  # судить по графе баллы по убыванию
 
-    else:
-        judging_criteria_first = 'total_time'  # судить по графе время по возрастанию
-
-    if competition_task.name_correction_time != "":
-        judging_criteria_second = 'correction_time'  # корректировать по времени
-    elif competition_task.name_correction_score_up != "":
-        judging_criteria_second = 'correction_score_up'  # корректировать по баллам вверх
-    else:
-        judging_criteria_second = '-correction_score_down'  # корректировать по баллам вниз
-
+    judging_criteria_first, judging_criteria_second = get_judging_categories(competition_task)
     table_task = get_ordering_table_task(competition_task, judging_criteria_first, judging_criteria_second)
 
     # table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
@@ -322,8 +327,11 @@ def view_task_result(request, pk: int, pc: int):
     """
     competition = Competition.objects.filter(id=pc).first()  # конкурс
     competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
-    table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
-        'participant')  # таблица результатов
+
+    judging_criteria_first, judging_criteria_second = get_judging_categories(competition_task)  # судить по графе
+    table_task = get_ordering_table_task(competition_task, judging_criteria_first,
+                                         judging_criteria_second)  # таблица результатов
+
     comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
 
     my_obj = comp_task_as_dict[0]
