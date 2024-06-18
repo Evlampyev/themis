@@ -149,6 +149,16 @@ def get_title_and_fields_name(obj: object):
     return title, fields
 
 
+def get_ordering_table_task(competition_task, first, second):
+    result = TableTask.objects.filter(competition_task=competition_task).order_by(first, second)
+    i = 1
+    for row in result:
+        row.result_place = i
+        row.save()
+        i += 1
+    return result
+
+
 def end_judging(request, pk: int):
     """Завершение судейства для этапа конкурса
     :param pk: id этапа конкурса
@@ -182,15 +192,29 @@ def judge_task(request, pk, pc):
 
     comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
     my_obj = comp_task_as_dict[0]
-    task_table_title, fields_name = get_title_and_fields_name(my_obj)
+    task_table_title, fields_name = get_title_and_fields_name(my_obj)  # получение заголовков таблицы и имен полей
     if competition_task.name_points != "":
-        judging_criteria = 'points'  # судить по графе баллы
+        judging_criteria_first = '-points'  # судить по графе баллы по убыванию
 
     else:
-        judging_criteria = 'total_time'  # судить по графе время
+        judging_criteria_first = 'total_time'  # судить по графе время по возрастанию
 
-    table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
-        judging_criteria)  # таблица результатов
+    if competition_task.name_correction_time != "":
+        judging_criteria_second = 'correction_time'  # корректировать по времени
+    elif competition_task.name_correction_score_up != "":
+        judging_criteria_second = 'correction_score_up'  # корректировать по баллам вверх
+    else:
+        judging_criteria_second = '-correction_score_down'  # корректировать по баллам вниз
+
+    table_task = get_ordering_table_task(competition_task, judging_criteria_first, judging_criteria_second)
+
+    # table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
+    #     judging_criteria_first, judging_criteria_second)  # таблица результатов
+    # i = 1
+    # for row in table_task:
+    #     row.result_place = i
+    #     row.save()
+    #     i += 1
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'pk': competition_task.id,
@@ -200,6 +224,9 @@ def judge_task(request, pk, pc):
     if request.method == 'POST':
         form = TableTaskForm(request.POST)
         if form.is_valid():
+            # print(f"{fields_name = }")
+            # dict_table_task = {k: None for k in fields_name}
+
             participant = form.cleaned_data['participant']
             intermediate_points_1 = form.cleaned_data['intermediate_points_1']
             intermediate_points_2 = form.cleaned_data['intermediate_points_2']
@@ -214,6 +241,11 @@ def judge_task(request, pk, pc):
             total_time = form.cleaned_data['total_time']
             correction_time = form.cleaned_data['correction_time']
 
+            # for key, value in dict_table_task.items():
+            #     if key != "result_place":
+            #         dict_table_task[key] = form.cleaned_data[f"{key}"]
+            # print(f"{dict_table_task = }")
+
             table_task = TableTask(competition_task=competition_task, participant=participant,
                                    intermediate_points_1=intermediate_points_1,
                                    intermediate_points_2=intermediate_points_2,
@@ -224,19 +256,21 @@ def judge_task(request, pk, pc):
                                    intermediate_time_2=intermediate_time_2, average_time=average_time,
                                    total_time=total_time, correction_time=correction_time)
             table_task.save()
-            table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
-                judging_criteria)  # таблица результатов
-            i = 1
-            for row in table_task:
-                row.result_place = i
-                row.save()
-                i += 1
+            # table_task = get_ordering_table_task(competition_task, judging_criteria_first, judging_criteria_second)
+            # table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
+            #     judging_criteria_first, judging_criteria_second)  # таблица результатов
+            # i = 1
+            # for row in table_task:
+            #     row.result_place = i
+            #     row.save()
+            #     i += 1
             logger.info(f'Добавлен результат участника {participant}')
             messages.success(request, f"Результат  {participant} добавлен")
             return redirect('judge_task', pk=pk, pc=pc)
         else:
             print("Форма не валидна")
-            messages.error(request, f"Не верные данные для ввода")
+            print(form.errors)
+            messages.error(request, f"Не верные данные для ввода^ {form.errors}")
             return redirect('judge_task', pk=pk, pc=pc)
 
     else:
@@ -312,4 +346,4 @@ def delete_participant_from_table_task(request, pk):
     row_in_table.delete()
     # competition_id = CompetitionTask.objects.filter(id=competition_task_id).first().competition.id
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-# перезагрузка той страницы, где происходит действие
+    # перезагрузка той страницы, где происходит действие

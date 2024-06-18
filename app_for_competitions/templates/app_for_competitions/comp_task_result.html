@@ -21,7 +21,11 @@
         {% for row in table %}
         <tr>
             {% for name in fields_name %}
-            <td>{{ row|my_getattr:name }}</td>
+                {% if 'time' in name %}
+                    <td>{{  row|my_getattr:name |time:"i:s" }}</td>
+                {% else %}
+                    <td>{{ row|my_getattr:name }}</td>
+                {% endif %}
             {% endfor %}
             {% if user.judge.status == 'M' or user.judge.status == 'J' %}
             <td class="actions"><a href="#">Редактировать</a>

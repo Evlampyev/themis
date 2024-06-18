@@ -64,6 +64,8 @@ def save_user_judge(sender, instance, **kwargs):
 class Participant(models.Model):
     """Участники, НЕ привязанные к User"""
 
+    objects = None
+
     class Meta:
         db_table = 'participants'
         verbose_name = _('Участник')
@@ -115,20 +117,22 @@ class TableTask(models.Model):
     competition_task = models.ForeignKey(CompetitionTask, on_delete=models.CASCADE, verbose_name=_('Этап'))
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, verbose_name=_('Участник'))
 
-    intermediate_points_1 = models.IntegerField(_('Промежуточные баллы - 1'), default=0)
-    intermediate_points_2 = models.IntegerField(_('Промежуточные баллы - 2'), default=0)
-    intermediate_points_3 = models.IntegerField(_('Промежуточные баллы - 3'), default=0)
-    intermediate_points_4 = models.IntegerField(_('Промежуточные баллы - 4'), default=0)
-    points = models.IntegerField(_('Сумма баллов'), default=0)
-    correction_score_up = models.IntegerField(_('Корректирующий балл, если больше'), default=0)
-    correction_score_down = models.IntegerField(_('Корректирующий балл, если меньше'), default=0)
-    intermediate_time_1 = models.TimeField(_('Промежуточное время - 1, мм:сс'), default=time(0, 0, 0))
-    intermediate_time_2 = models.TimeField(_('Промежуточное время - 2, мм:сс'), default=time(0, 0, 0))
-    average_time = models.TimeField(_('Среднее время, мм:сс'), default=time(0, 0, 0))
-    total_time = models.TimeField(_('Время, мм:сс'), default=time(0, 0, 0))
-    correction_time = models.TimeField(_('Корректирующее время, мм:сс'), default=time(0, 0, 0))
+    intermediate_points_1 = models.IntegerField(_('Промежуточные баллы - 1'), default=0, blank=True)
+    intermediate_points_2 = models.IntegerField(_('Промежуточные баллы - 2'), default=0, blank=True)
+    intermediate_points_3 = models.IntegerField(_('Промежуточные баллы - 3'), default=0, blank=True)
+    intermediate_points_4 = models.IntegerField(_('Промежуточные баллы - 4'), default=0, blank=True)
+    points = models.IntegerField(_('Сумма баллов'), default="", blank=True)
+    correction_score_up = models.IntegerField(_('Корректирующий балл, если больше'), default=0, blank=True)
+    correction_score_down = models.IntegerField(_('Корректирующий балл, если меньше'), default=0, blank=True)
+    intermediate_time_1 = models.TimeField(_('Промежуточное время - 1, мм:сс'), default=time(minute=0, second=0),
+                                           blank=True)
+    intermediate_time_2 = models.TimeField(_('Промежуточное время - 2, мм:сс'), default=time(minute=0, second=0),
+                                           blank=True)
+    average_time = models.TimeField(_('Среднее время, мм:сс'), default=time(minute=0, second=0), blank=True)
+    total_time = models.TimeField(_('Время, мм:сс'), default=time(minute=0, second=0), blank=True)
+    correction_time = models.TimeField(_('Корректирующее время, мм:сс'), default=time(minute=0, second=0), blank=True)
 
-    result_place = models.IntegerField(_('Место'), default=0)
+    result_place = models.IntegerField(_('Место'), default=0, blank=True)
 
     def __str__(self):
         return f"{self.competition_task} {self.participant} {self.result_place}"
