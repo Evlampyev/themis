@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from logging import getLogger
-from .forms import CompetitionForm, TableTaskForm
+from .forms import CompetitionForm, TableTaskForm, CompetitionTaskForm
 from .models import Competition, CompetitionTask
 from app_for_judges.models import TableTask, CompetitionResult
 from django.contrib import messages
@@ -12,9 +12,8 @@ from django.contrib import messages
 
 logger = getLogger(__name__)
 
-COMPETITIONS_TABLE_TITLE = ['№ п/п', 'Краткое название', "Полное наименование", "Сроки",
+COMPETITIONS_TABLE_TITLE = ["№\nп/п", 'Краткое название', "Полное наименование", "Сроки",
                             "Активен", "Редактор"]
-TASK_TABLE_TITLE = ['Участник', "Время, \nмм:сс", "Место", "Редактор"]
 
 RESULT_COMPETITION_TABLE_TITLE = ['Место', 'Участник', "Сумма мест"]
 
@@ -57,11 +56,11 @@ def competition_activate(request, pk):
     if competition.active:
         competition.active = False
         competition.save()
-        CompetitionResult.objects.all().delete() # очистка таблицы результатов конкурса
+        CompetitionResult.objects.all().delete()  # очистка таблицы результатов конкурса
         competition_tasks = CompetitionTask.objects.filter(competition=competition)
         for task in competition_tasks:
-            TableTask.objects.filter(competition_task=task).delete() # очистка таблицы результатов этапа
-            task.judging = True # разрешение судейства
+            TableTask.objects.filter(competition_task=task).delete()  # очистка таблицы результатов этапа
+            task.judging = True  # разрешение судейства
             task.save()
     else:
         competition.active = True
@@ -132,6 +131,50 @@ def view_competition(request, pk):
     return render(request, 'app_for_competitions/view_competition_tasks.html', context)
 
 
+def get_title_and_fields_name(obj: object):
+    """Получения заголовков полей таблицы результатов и
+    названия этих полей
+     :param obj: запись результата участника в таблице table_tasks
+     """
+    title = ['Участник']
+    fields = ['participant']
+
+    for index, (name, value) in enumerate(obj.items()):
+        if name.startswith('name_') and value != "":
+            title.append(value)
+            fields.append(name[5:])
+
+    title += ["Место", "Редактор"]
+    fields += ['result_place']
+    return title, fields
+
+
+def get_ordering_table_task(competition_task, first, second):
+    result = TableTask.objects.filter(competition_task=competition_task).order_by(first, second)
+    i = 1
+    for row in result:
+        row.result_place = i
+        row.save()
+        i += 1
+    return result
+
+
+def get_judging_categories(competition_task):
+    if competition_task.name_points != "":
+        judging_criteria_first = '-points'  # судить по графе баллы по убыванию
+    else:
+        judging_criteria_first = 'total_time'  # судить по графе время по возрастанию
+
+    if competition_task.name_correction_time != "":
+        judging_criteria_second = 'correction_time'  # корректировать по времени
+    elif competition_task.name_correction_score_up != "":
+        judging_criteria_second = 'correction_score_up'  # корректировать по баллам вверх
+    else:
+        judging_criteria_second = '-correction_score_down'  # корректировать по баллам вниз
+
+    return judging_criteria_first, judging_criteria_second
+
+
 def end_judging(request, pk: int):
     """Завершение судейства для этапа конкурса
     :param pk: id этапа конкурса
@@ -162,50 +205,145 @@ def judge_task(request, pk, pc):
     """
     competition = Competition.objects.filter(id=pc).first()  # конкурс
     competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
-    table_task = TableTask.objects.filter(competition_task=competition_task).order_by('time')  # таблица результатов
 
+    comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
+    my_obj = comp_task_as_dict[0]
+    task_table_title, fields_name = get_title_and_fields_name(my_obj)  # получение заголовков таблицы и имен полей
+
+    judging_criteria_first, judging_criteria_second = get_judging_categories(competition_task)
+    table_task = get_ordering_table_task(competition_task, judging_criteria_first, judging_criteria_second)
+
+    # table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
+    #     judging_criteria_first, judging_criteria_second)  # таблица результатов
+    # i = 1
+    # for row in table_task:
+    #     row.result_place = i
+    #     row.save()
+    #     i += 1
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'pk': competition_task.id,
                'table': table_task,
-               'table_title': TASK_TABLE_TITLE}
+               'table_title': task_table_title}
 
     if request.method == 'POST':
         form = TableTaskForm(request.POST)
         if form.is_valid():
+            # print(f"{fields_name = }")
+            # dict_table_task = {k: None for k in fields_name}
+
             participant = form.cleaned_data['participant']
-            time = form.cleaned_data['time']
-            table_task = TableTask(competition_task=competition_task, participant=participant, time=time)
+            intermediate_points_1 = form.cleaned_data['intermediate_points_1']
+            intermediate_points_2 = form.cleaned_data['intermediate_points_2']
+            intermediate_points_3 = form.cleaned_data['intermediate_points_3']
+            intermediate_points_4 = form.cleaned_data['intermediate_points_4']
+            points = form.cleaned_data['points']
+            correction_score_up = form.cleaned_data['correction_score_up']
+            correction_score_down = form.cleaned_data['correction_score_down']
+            intermediate_time_1 = form.cleaned_data['intermediate_time_1']
+            intermediate_time_2 = form.cleaned_data['intermediate_time_2']
+            average_time = form.cleaned_data['average_time']
+            total_time = form.cleaned_data['total_time']
+            correction_time = form.cleaned_data['correction_time']
+
+            # for key, value in dict_table_task.items():
+            #     if key != "result_place":
+            #         dict_table_task[key] = form.cleaned_data[f"{key}"]
+            # print(f"{dict_table_task = }")
+
+            table_task = TableTask(competition_task=competition_task, participant=participant,
+                                   intermediate_points_1=intermediate_points_1,
+                                   intermediate_points_2=intermediate_points_2,
+                                   intermediate_points_3=intermediate_points_3,
+                                   intermediate_points_4=intermediate_points_4,
+                                   points=points, correction_score_up=correction_score_up,
+                                   correction_score_down=correction_score_down, intermediate_time_1=intermediate_time_1,
+                                   intermediate_time_2=intermediate_time_2, average_time=average_time,
+                                   total_time=total_time, correction_time=correction_time)
             table_task.save()
-            table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
-                'time')  # таблица результатов
-            i = 1
-            for row in table_task:
-                row.result_place = i
-                row.save()
-                i += 1
+            # table_task = get_ordering_table_task(competition_task, judging_criteria_first, judging_criteria_second)
+            # table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
+            #     judging_criteria_first, judging_criteria_second)  # таблица результатов
+            # i = 1
+            # for row in table_task:
+            #     row.result_place = i
+            #     row.save()
+            #     i += 1
+            logger.info(f'Добавлен результат участника {participant}')
             messages.success(request, f"Результат  {participant} добавлен")
             return redirect('judge_task', pk=pk, pc=pc)
+        else:
+            print("Форма не валидна")
+            print(form.errors)
+            messages.error(request, f"Не верные данные для ввода^ {form.errors}")
+            return redirect('judge_task', pk=pk, pc=pc)
+
     else:
         form = TableTaskForm()
         context['form'] = form
+        context['fields_name'] = fields_name
         return render(request, 'app_for_competitions/judge_task.html', context)
 
 
-def view_task_result(request, pk, pc):
+def create_competition_task(request, pc: int):
+    """Создание этапа конкурса"""
+    competition = get_object_or_404(Competition, id=pc)
+    if request.method == 'POST':
+        form = CompetitionTaskForm(request.POST)
+        if form.is_valid():
+            competition_task = CompetitionTask(competition=competition, name=form.cleaned_data['name'],
+                                               judging=form.cleaned_data['judging'],
+                                               name_intermediate_points_1=form.cleaned_data[
+                                                   'name_intermediate_points_1'],
+                                               name_intermediate_points_2=form.cleaned_data[
+                                                   'name_intermediate_points_2'],
+                                               name_intermediate_points_3=form.cleaned_data[
+                                                   'name_intermediate_points_3'],
+                                               name_intermediate_points_4=form.cleaned_data[
+                                                   'name_intermediate_points_4'],
+                                               name_points=form.cleaned_data['name_points'],
+                                               name_correction_score_up=form.cleaned_data['name_correction_score_up'],
+                                               name_correction_score_down=form.cleaned_data[
+                                                   'name_correction_score_down'],
+                                               name_intermediate_time_1=form.cleaned_data['name_intermediate_time_1'],
+                                               name_intermediate_time_2=form.cleaned_data['name_intermediate_time_2'],
+                                               name_average_time=form.cleaned_data['name_average_time'],
+                                               name_total_time=form.cleaned_data['name_total_time'],
+                                               name_correction_time=form.cleaned_data['name_correction_time']
+                                               )
+            competition_task.save()
+            logger.info(f': Task {competition_task.name} created')
+            messages.success(request, f'Этап конкурса "{competition.name}" добавлен')
+            return redirect('view_competition', pk=pc)
+    else:
+        form = CompetitionTaskForm()
+    return render(request, 'app_for_competitions/create_competition_task.html', {'form': form})
+
+
+def view_task_result(request, pk: int, pc: int):
     """Просмотр результатов этапа конкурса
     params: pk - id этапа
             pc - id конкурса
     """
     competition = Competition.objects.filter(id=pc).first()  # конкурс
     competition_task = CompetitionTask.objects.filter(id=pk).first()  # этап конкурса
-    table_task = TableTask.objects.filter(competition_task=competition_task).order_by(
-        'participant')  # таблица результатов
+
+    judging_criteria_first, judging_criteria_second = get_judging_categories(competition_task)  # судить по графе
+    table_task = get_ordering_table_task(competition_task, judging_criteria_first,
+                                         judging_criteria_second)  # таблица результатов
+
+    comp_task_as_dict = CompetitionTask.objects.filter(id=pk).values()
+
+    my_obj = comp_task_as_dict[0]
+    task_table_title, fields_name = get_title_and_fields_name(my_obj)
+
     context = {'title': f"{competition.name}",
                'competition_task': competition_task.name,
                'table': table_task,
-               'table_title': TASK_TABLE_TITLE}
-    print(f'{table_task = }')
+               'table_title': task_table_title,
+               'fields_name': fields_name}
+
+    print(f'{fields_name = }')
     return render(request, 'app_for_competitions/view_task_result.html', context)
 
 
@@ -216,4 +354,4 @@ def delete_participant_from_table_task(request, pk):
     row_in_table.delete()
     # competition_id = CompetitionTask.objects.filter(id=competition_task_id).first().competition.id
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-# перезагрузка той страницы, где происходит действие
+    # перезагрузка той страницы, где происходит действие

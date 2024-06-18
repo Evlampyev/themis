@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -33,6 +34,7 @@
             <li><a class="a_menu" href="{% url 'about' %}">Обо мне</a></li>
             <div class="container enter">
                 {% if user.is_authenticated %}
+                <div class="user_name"><a class="a_menu" href="/admin">АДМИН</a></div>
                 <div class="user_name">{{user.judge.get_status_display }} <br> {{ user.username }}</div>
                 <a href="{% url 'users:logout' %}" class="btn a_btn">Выйти</a>
                 {% else %}

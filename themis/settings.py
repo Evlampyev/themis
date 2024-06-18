@@ -28,8 +28,11 @@ ALLOWED_HOSTS = [
     '192.168.0.113',
     '127.0.0.1',
     '192.168.3.12',
-
 ]
+
+TIME_INPUT_FORMATS = (
+    '%M:%S',
+)
 
 # Application definition
 
@@ -48,7 +51,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_tables2',
 
-
 ]
 
 MIDDLEWARE = [
@@ -66,10 +68,10 @@ ROOT_URLCONF = 'themis.urls'
 
 TEMPLATES = [
     {
-        'BACKEND' : 'django.template.backends.django.DjangoTemplates',
-        'DIRS'    : [BASE_DIR / 'templates'],
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
-        'OPTIONS' : {
+        'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -88,7 +90,7 @@ WSGI_APPLICATION = 'themis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME'  : BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -126,9 +128,8 @@ USE_TZ = True
 
 LOGIN_REDIRECT_URL = 'home'  # URL-адрес, на который перенаправляет после успешной авторизации;
 LOGIN_URL = 'home'  # URL-адрес, на который следует перенаправить неавторизованного пользователя
-                    # при попытке посетить закрытую страницу сайта;
+# при попытке посетить закрытую страницу сайта;
 LOGOUT_REDIRECT_URL = 'about'  # URL-адрес, на который перенаправляется пользователь после выхода.
-
 
 INTERNAL_IPS = [
     '127.0.0.1',
@@ -145,55 +146,55 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGGING = {
-    'version'                : 1,
+    'version': 1,
     'disable_existing_fields': False,
     # чтобы не перекрывать более верхние уровни логирования
-    'formatters'             : {
+    'formatters': {
         'verbose': {
             'format': '[{levelname:<8}: {name:>25}] - {asctime} : {funcName} @ {lineno:04d}: {message}',
-            'style' : '{',
+            'style': '{',
         },
-        'simple' : {
+        'simple': {
             'format': '%(levelname)s %(message)s'
         },
     },
 
-    'handlers'               : {
+    'handlers': {
         'console': {  # выводить ошибки в консоль
-            'class'    : 'logging.StreamHandler',
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
-        'file'   : {  # выводить ошибки в файл
-            'class'    : 'logging.FileHandler',
-            'filename' : BASE_DIR / 'logs' / 'django.log',  # имя файла
+        'file': {  # выводить ошибки в файл
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs' / 'django.log',  # имя файла
             'formatter': 'verbose',
-            'mode'     : 'w',  # для перезаписи файла логирования каждый раз при старте сервера
+            'mode': 'w',  # для перезаписи файла логирования каждый раз при старте сервера
         },
     },
-    'loggers'                : {
-        'django'              : {  # для всего проекта
+    'loggers': {
+        'django': {  # для всего проекта
             'handlers': ['console', 'file'],
-            'level'   : 'INFO',
+            'level': 'INFO',
         },
-        'app_for_judges'      : {  # для моего приложения в проекте
-            'handlers' : ['console', 'file'],
-            'level'    : 'DEBUG',
+        'app_for_judges': {  # для моего приложения в проекте
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
             'propagate': True,
             # если есть более высоко стоящие логгеры, то их нужно использовать
         },
         'app_for_competitions': {
-            'handlers' : ['console', 'file'],
-            'level'    : 'DEBUG',
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
             'propagate': True,
         },
-        'app_main'            : {
-            'handlers' : ['console', 'file'],
-            'level'    : 'DEBUG',
+        'app_main': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
             'propagate': True,
         },
-        'users'               : {
-            'handlers' : ['console', 'file'],
-            'level'    : 'DEBUG',
+        'users': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
             'propagate': True,
         },
     },

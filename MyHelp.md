@@ -11,9 +11,9 @@
 
 * Аутентификация и авторизация пользователя в джанго [тут](https://habr.com/ru/articles/787040/)
 
-*
-Связывание [абстрактного класса User](https://proproprogs.ru/django4/django4-rasshirenie-modeli-user-klass-abstractuser)
-(вcтроенного) со своей моделью для авторизации и всего остального
+* Связывание [абстрактного класса User](https://proproprogs.ru/django4/django4-rasshirenie-modeli-user-klass-abstractuser) 
+(встроенного) со своей моделью для авторизации и всего остального
+
 
 * Стратегии расширения [Django User Model](https://habr.com/ru/articles/313764/)
 

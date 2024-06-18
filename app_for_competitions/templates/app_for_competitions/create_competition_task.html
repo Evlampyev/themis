@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+
+<h2 class="center">Добавление этапа конкурса</h2>
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="form_container">
+        {{ form.as_div }}
+    </div>
+    <div class="container">
+        <input class="btn a_btn" type="submit" value="Сохранить"/>
+    </div>
+</form>
+
+{% endblock content %}

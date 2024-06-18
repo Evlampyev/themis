@@ -38,6 +38,10 @@ def judges_list(request, filter):
     if filter == 'all':
         context['title'] = "Список организаторов"
         users = User.objects.filter(is_active=True).order_by('last_name')
+
+        logger.info(f'Filter organizers = all')
+        messages.success(request, _('Показаны все организаторы'))
+
     elif filter == 'judge':
         context['title'] = "Список судей"
         temp_users = User.objects.filter(is_active=True).order_by('last_name')
@@ -45,6 +49,9 @@ def judges_list(request, filter):
         for user in temp_users:
             if user.judge.status == 'J':
                 users.append(user)
+
+        logger.info(f'Filter organizers = judges only')
+        messages.success(request, _('Показаны только судьи'))
 
     competitions_dict = {}
     for user in users:
@@ -63,8 +70,9 @@ def delete_judge(request, pk):
     logger.info(f'{user.judge} deleted')
     user.is_active = False
     user.save()
+    logger.info(f'User {user} deleted')
     messages.success(request, _(f"Пользователь {user} удален "))
-    return redirect('all_judges')
+    return redirect('judges_list', filter='all')
 
 
 @login_required
@@ -96,7 +104,7 @@ def add_judge(request):
             # user.save()
             logger.info(f'{user} добавлен.')
             messages.success(request, _('Судья добавлен'))
-            return redirect('all_judges')
+            return redirect('judges_list', filter='all')
 
     else:
         user_form = UserAddForm()
@@ -143,7 +151,7 @@ def edit_judge(request, pk):
                 user.judge.competitions.add(competition)
 
             messages.success(request, _('Изменения сохранены'))
-            return redirect('all_judges')
+            return redirect('judges_list', filter='all')
         else:
             messages.error(request, _('Пожалуйста, исправьте следующие ошибки:'))
             return render(request, 'app_for_judges/edit_judge.html', {'form': form})

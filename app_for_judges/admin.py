@@ -68,11 +68,22 @@ class ParticipantTeamsAdmin(admin.ModelAdmin):
     search_help_text = "Поиск по полю Название команды "
 
 
-class TableTaskAdmine(admin.ModelAdmin):
+class TableTaskAdmin(admin.ModelAdmin):
+    def admin_total_time(self, obj):
+        """
+        Изменение представления времени в админ панели
+        """
+        return obj.total_time.strftime("%M:%S")
+
+    admin_total_time.admin_order_field = 'total_time'
+    admin_total_time.short_description = 'Общее время'
+
     model = TableTask
-    list_display = ['competition_task', 'participant', 'time', 'result_place']
+    list_display = ['competition_task', 'participant', 'points', 'admin_total_time', 'result_place']
     ordering = ['competition_task', 'participant']
-    list_filter = ['competition_task', 'participant']
+    list_filter = ['competition_task', 'participant', 'result_place']
+    search_fields = ['competition_task']
+    search_help_text = "Поиск по полю Название этапа'"
 
 
 class CompetitionResultAdmin(admin.ModelAdmin):
@@ -84,5 +95,5 @@ class CompetitionResultAdmin(admin.ModelAdmin):
 admin.site.register(Judge, JudgeInline)
 admin.site.register(Participant, ParticipantsAdmin)
 admin.site.register(ParticipantsTeam, ParticipantTeamsAdmin)
-admin.site.register(TableTask, TableTaskAdmine)
+admin.site.register(TableTask, TableTaskAdmin)
 admin.site.register(CompetitionResult, CompetitionResultAdmin)

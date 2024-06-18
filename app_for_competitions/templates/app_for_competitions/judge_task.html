@@ -17,12 +17,16 @@
                 </div>
             </td>
             <td>
-                <form method="post" novalidate>
+                <form method="post" >
                     {% csrf_token %}
                     <div class="form_for_table_task_form">
                         {% for field in form %}
                         {{ field.errors }}
+
+                        {% if field.name in fields_name %}
                         <div class="row_form"> {{ field.label_tag }} {{ field }}</div>
+                        {% endif %}
+
                         {% endfor %}
                     </div>
                     <input class="btn a_btn" type="submit" value="Сохранить"/>
