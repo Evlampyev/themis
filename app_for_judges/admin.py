@@ -73,7 +73,10 @@ class TableTaskAdmin(admin.ModelAdmin):
         """
         Изменение представления времени в админ панели
         """
-        return obj.total_time.strftime("%M:%S")
+        if obj.total_time is None:
+            return '-'
+        else:
+            return obj.total_time.strftime("%M:%S")
 
     admin_total_time.admin_order_field = 'total_time'
     admin_total_time.short_description = 'Общее время'

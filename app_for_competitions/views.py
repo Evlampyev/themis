@@ -3,6 +3,9 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from logging import getLogger
+
+from django.template import RequestContext
+
 from .forms import CompetitionForm, TableTaskForm, CompetitionTaskForm
 from .models import Competition, CompetitionTask
 from app_for_judges.models import TableTask, CompetitionResult
@@ -117,6 +120,7 @@ def competition_result(request):
     context['table_title'] = RESULT_COMPETITION_TABLE_TITLE
     competition_results = CompetitionResult.objects.all().order_by('final_place')
     context['competition_results'] = competition_results
+
     return render(request, 'app_for_competitions/competition_result.html', context)
 
 
@@ -150,6 +154,12 @@ def get_title_and_fields_name(obj: object):
 
 
 def get_ordering_table_task(competition_task, first, second):
+    """
+    Расстановка мест в таблице результатов
+    :param competition_task: этап конкурса
+    :param first: судить по графе первый параметр
+    :param second: судить по графе второй параметр
+    """
     result = TableTask.objects.filter(competition_task=competition_task).order_by(first, second)
     i = 1
     for row in result:
@@ -160,17 +170,22 @@ def get_ordering_table_task(competition_task, first, second):
 
 
 def get_judging_categories(competition_task):
+    """
+    Выбор критериев сортировки для расстановки мест в таблице результатов
+    """
     if competition_task.name_points != "":
         judging_criteria_first = '-points'  # судить по графе баллы по убыванию
-    else:
+    elif competition_task.name_total_time != "":
         judging_criteria_first = 'total_time'  # судить по графе время по возрастанию
+    else:
+        judging_criteria_first = 'average_time'  # судить по графе среднее время по возрастанию
 
     if competition_task.name_correction_time != "":
         judging_criteria_second = 'correction_time'  # корректировать по времени
     elif competition_task.name_correction_score_up != "":
-        judging_criteria_second = 'correction_score_up'  # корректировать по баллам вверх
+        judging_criteria_second = '-correction_score_up'  # корректировать по баллам вверх
     else:
-        judging_criteria_second = '-correction_score_down'  # корректировать по баллам вниз
+        judging_criteria_second = 'correction_score_down'  # корректировать по баллам вниз
 
     return judging_criteria_first, judging_criteria_second
 
@@ -275,7 +290,7 @@ def judge_task(request, pk, pc):
         else:
             print("Форма не валидна")
             print(form.errors)
-            messages.error(request, f"Не верные данные для ввода^ {form.errors}")
+            messages.error(request, f"Не верные данные для ввода: {form.errors}")
             return redirect('judge_task', pk=pk, pc=pc)
 
     else:
@@ -343,7 +358,7 @@ def view_task_result(request, pk: int, pc: int):
                'table_title': task_table_title,
                'fields_name': fields_name}
 
-    print(f'{fields_name = }')
+    # print(f'{fields_name = }')
     return render(request, 'app_for_competitions/view_task_result.html', context)
 
 

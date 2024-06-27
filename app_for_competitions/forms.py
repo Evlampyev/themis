@@ -42,8 +42,15 @@ class TableTaskForm(forms.ModelForm):
 
     participant = forms.ModelChoiceField(
         queryset=Participant.objects.filter(competition__active=True).order_by('last_name'), label=_("Участник"))
+    # participant = forms.ModelChoiceField(
+    #     queryset=Participant.objects.filter(competition__active=True).difference(
+    #         TableTask.objects.filter(participant_id__in=Participant.objects.filter(competition__active=True).order_by(
+    #                                      'last_name'))))
     total_time = forms.TimeInput(format='%M:%S')
+    average_time = forms.TimeInput(format='%M:%S')
+
     # выбираются участники чей конкурс сейчас активен, по идее должны выбираться, кто на этот конкурс заявлен
+
     def clean_fields(self):
         time = self.cleaned_data['field_name']
         if time:
@@ -67,7 +74,20 @@ class TableTaskForm(forms.ModelForm):
 
         if data != total and total != 0:
             print("Не соответствует сумма")
-            raise ValidationError("Сумма баллов не равна сумме промежуточных данных")
+            raise ValidationError(_("Сумма баллов не равна сумме промежуточных данных"))
+        return data
+
+    def clean_average_time(self):
+        """
+        Валидация времени, не проверяет среднее время
+        """
+        try:
+            data = self.cleaned_data['average_time']
+            if self.cleaned_data['intermediate_time_1'] == datetime.time(0, 0) or self.cleaned_data[
+                'intermediate_time_2'] == datetime.time(0, 0):
+                raise ValidationError(_("Одно из полей промежуточного времени не заполнено"))
+        except KeyError:
+            raise ValidationError(_("Одно из полей времени не заполнено"))
         return data
 
 
